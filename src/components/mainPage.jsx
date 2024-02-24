@@ -1,6 +1,5 @@
-import { Box, Grid, Stack, Typography } from '@mui/material';
-import React, { useEffect, useRef, useState } from 'react';
-import CustomDesignButton from '../utils/customDesignButton';
+import { Box, Grid, Stack } from '@mui/material';
+import React, { useRef, useState } from 'react';
 import { icons } from '../utils/icons';
 // import { Device } from 'react-mobile-device-frames';
 import { DeviceFrameset } from 'react-device-frameset';
@@ -8,21 +7,15 @@ import 'react-device-frameset/styles/marvel-devices.min.css';
 // import { items } from '../data/itemsData';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { itemsActions } from '../store/items-slice';
 import NavSkeleton from '../utils/navSkeleton';
 import Feed from './feed';
 import NavLinksSkeleton from '../utils/navLinksSkeleton';
 import BannerSettings from './bannerSettings';
 import StaticProductsSettings from './staticProductsSettings';
 import SquareImagesSettings from './squareImagesSettings';
-import { bannerActions } from '../store/banner-slice';
-import { squareActions } from '../store/square-slice';
-
-const StyldStack = styled(Stack)`
-	&&:hover {
-		background-color: var(--body-background-color);
-	}
-`;
+import AddButton from '../utils/addButton';
+import { itemsActions } from '../store/items-slice';
+import DeviceFrame from '../utils/deviceFrame';
 
 const settings = [
 	<BannerSettings />,
@@ -31,13 +24,7 @@ const settings = [
 ];
 
 const MainPage = () => {
-	// References for list and button elements
-	const listRef = useRef(null);
-	const buttonRef = useRef(null);
 	const mobileNavRef = useRef(null);
-
-	// Toggling list view
-	const [show, setShow] = useState(false);
 
 	// This useState is responsible for making items active
 	const [chosenItemIndex, setChosenItemIndex] = useState(-1);
@@ -53,67 +40,6 @@ const MainPage = () => {
 
 	const dispatch = useDispatch();
 
-	// Toggling list function
-	const toggoleList = () => {
-		setShow(!show);
-	};
-
-	// Adding items from the list to the items list in redux
-	const handleClick = (index) => {
-		dispatch(itemsActions.addItem(index));
-
-		// This section is responsible to manipulate the activition of the itmes
-		if (chosenItemIndex === chosenItems.length - 1) {
-			setChosenItemIndex(chosenItemIndex + 1);
-		} else {
-			setChosenItemIndex(chosenItems.length);
-		}
-		setSettingsContent(items[index].id - 1);
-
-		// Hide the list after every selection
-		setShow(false);
-	};
-
-	// Active itmes
-	const activeItem = (index) => {
-		setChosenItemIndex(index);
-		setSettingsContent(chosenItems[index].id - 1);
-	};
-
-	// Remove items from the items in redux and reset the active item to the first one
-	const handleRemoveItem = (index) => {
-		dispatch(itemsActions.removeItem(index));
-		setChosenItemIndex(0);
-		if (chosenItems.length - 1 === 0) {
-			setSettingsContent(null);
-		} else if (index === 0) {
-			setSettingsContent(chosenItems[1].id - 1);
-		} else {
-			setSettingsContent(chosenItems[0].id - 1);
-		}
-		if (chosenItems[index].id === 1) {
-			dispatch(bannerActions.resetBanner());
-		} else if (chosenItems[index].id === 3) {
-			dispatch(squareActions.resetList());
-		}
-	};
-
-	// Handle any outside click in the document to hide the list
-	useEffect(() => {
-		document.onclick = (e) => {
-			let isInside = false;
-			let isIconInside = false;
-			if (listRef.current) {
-				isInside = listRef.current.contains(e.target);
-				isIconInside = buttonRef.current.contains(e.target);
-			}
-
-			if (!isInside && e.target !== buttonRef.current && !isIconInside) {
-				setShow(false);
-			}
-		};
-	}, []);
-
 	return (
 		<Grid
 			container
@@ -121,8 +47,18 @@ const MainPage = () => {
 			sx={{ justifyContent: 'space-between' }}>
 			<Grid
 				item
-				xs={3}>
-				<Stack sx={{ gap: '0.5rem' }}>
+				xs={12}
+				lg={3}>
+				<AddButton
+					items={items}
+					chosenItems={chosenItems}
+					dispatch={dispatch}
+					chosenItemIndex={chosenItemIndex}
+					setChosenItemIndex={setChosenItemIndex}
+					setSettingsContent={setSettingsContent}
+					targetActions={itemsActions}
+				/>
+				{/* <Stack sx={{ gap: '0.5rem' }}>
 					<Stack sx={{ gap: '0.5rem' }}>
 						{chosenItems.map((item, i) => (
 							<Stack
@@ -246,18 +182,24 @@ const MainPage = () => {
 								))}
 						</Stack>
 					</Box>
-				</Stack>
+				</Stack> */}
 			</Grid>
 			<Grid
 				item
-				xs={4.5}>
+				xs={12}
+				lg={4.5}>
 				<Stack>{settings[settingsContent]}</Stack>
 			</Grid>
 			<Grid
 				item
-				sx={{ justifyContent: 'center' }}
-				xs={4.5}>
-				<Box sx={{ width: 'fit-content' }}>
+				sx={{ justifyContent: 'center', display: 'flex' }}
+				xs={12}
+				lg={4.5}>
+				<DeviceFrame
+					chosenItemIndex={chosenItemIndex}
+					mobileNavRef={mobileNavRef}
+				/>
+				{/* <Box sx={{ width: 'fit-content' }}>
 					<DeviceFrameset
 						device="iPhone X"
 						height={'733px'}
@@ -284,11 +226,11 @@ const MainPage = () => {
 								<Box component="span">{icons.leftSide}</Box>
 							</Stack>
 							<Stack gap={'1rem'}>
-								{/* {chosenItems.map((el) => {
+								{chosenItems.map((el) => {
 								if (el.def === 'banner') {
 									return <div>Banner</div>;
 								}
-							})} */}
+							})}
 								<Box ref={mobileNavRef}>
 									<NavSkeleton />
 								</Box>
@@ -300,7 +242,7 @@ const MainPage = () => {
 						</Box>
 						<NavLinksSkeleton />
 					</DeviceFrameset>
-				</Box>
+				</Box> */}
 			</Grid>
 		</Grid>
 	);

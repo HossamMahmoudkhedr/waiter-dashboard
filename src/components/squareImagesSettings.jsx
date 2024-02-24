@@ -41,11 +41,21 @@ const SquareImagesSettings = () => {
 				accept="image/*"
 				style={{ display: 'none' }}
 			/>
+			<input
+				ref={changeFileRef}
+				onChange={(e) => {
+					handleUploadChange(e, true, change, squareActions, dispatch);
+				}}
+				type="file"
+				accept="image/*"
+				style={{ display: 'none' }}
+			/>
 			<Grid
 				container
 				spacing={2}>
 				{imagesList.map((image, i) => (
 					<Grid
+						key={i}
 						item
 						xs={12}
 						md={6}>
@@ -81,21 +91,7 @@ const SquareImagesSettings = () => {
 											},
 										}}
 									/>
-									<input
-										ref={changeFileRef}
-										onChange={(e) => {
-											handleUploadChange(
-												e,
-												true,
-												change,
-												squareActions,
-												dispatch
-											);
-										}}
-										type="file"
-										accept="image/*"
-										style={{ display: 'none' }}
-									/>
+
 									<CustomDesignButton
 										bg={'var(--white)'}
 										icon={icons.upload}

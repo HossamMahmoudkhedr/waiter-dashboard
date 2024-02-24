@@ -4,9 +4,14 @@ import { designData } from '../data/designStepData';
 import MainPage from './mainPage';
 import StartingScreens from './startingScreens';
 import Tabs from './tabs';
-import Settings from './settings';
+import GeneralSettings from './generalSettings';
 
-const content = [<MainPage />, <StartingScreens />, <Tabs />, <Settings />];
+const content = [
+	<MainPage />,
+	<StartingScreens />,
+	<Tabs />,
+	<GeneralSettings />,
+];
 
 const DesignApp = () => {
 	const [chosenContent, setChosenContent] = useState(0);
@@ -17,7 +22,13 @@ const DesignApp = () => {
 		<Stack sx={{ gap: '2rem' }}>
 			<Stack
 				direction="row"
-				sx={{ gap: '0.875rem' }}>
+				className="stepper"
+				sx={{
+					gap: '0.875rem',
+					overflowX: { xs: 'scroll', lg: 'unset' },
+					padding: { xs: '0.5rem 0', lg: 'none' },
+					marginRight: { xs: '1rem', lg: 'unset' },
+				}}>
 				{designData.map((el, i) => {
 					return (
 						<Stack
@@ -31,9 +42,10 @@ const DesignApp = () => {
 									chosenContent === i
 										? 'var(--primary-color)'
 										: 'var(--gray-lighter)',
-								padding: '0.5rem 0.75rem',
+								padding: { xs: '0.8rem 1rem', lg: '0.5rem 0.75rem' },
 								borderRadius: '0.75rem',
 								cursor: 'pointer',
+								minWidth: { xs: 'fit-content', lg: 'unset' },
 							}}
 							key={el.id}>
 							<Box
@@ -58,7 +70,9 @@ const DesignApp = () => {
 					);
 				})}
 			</Stack>
-			<Box>{content[chosenContent]}</Box>
+			<Box sx={{ padding: { xs: '0rem 1rem', lg: 'unset' } }}>
+				{content[chosenContent]}
+			</Box>
 		</Stack>
 	);
 };

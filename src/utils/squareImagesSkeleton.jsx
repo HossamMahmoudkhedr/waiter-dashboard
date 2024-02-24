@@ -17,15 +17,15 @@ const text = [
 ];
 const SquareImagesSkeleton = () => {
 	const imagesList = useSelector((state) => state.square.imagesList);
-	console.log(imagesList[0] === undefined);
 	return (
 		<Stack
 			direction="row"
-			sx={{ flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'center' }}>
+			sx={{ flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
 			{imagesList.map((image, i) => {
 				return (
 					<Box
-						width="48%"
+						key={i}
+						width="47%"
 						height="141px"
 						sx={{ position: 'relative' }}>
 						{image !== undefined && (

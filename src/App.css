@@ -11,3 +11,14 @@ a.active {
 .root-0-1-1 {
 	background-color: transparent !important;
 }
+
+.stepper::-webkit-scrollbar-thumb {
+	background: var(--gray-lighter);
+	border-radius: 1rem;
+}
+.stepper::-webkit-scrollbar {
+	height: 4px;
+}
+.stepper::-webkit-scrollbar-track {
+	background: transparent;
+}

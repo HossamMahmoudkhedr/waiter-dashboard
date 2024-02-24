@@ -111,6 +111,7 @@ const BannerSkeleton = () => {
 						}}>
 						{bannerImages.map((el, i) => (
 							<Box
+								key={i}
 								onClick={() => {
 									setviewedImage(i);
 								}}

@@ -42,10 +42,19 @@ const BannerSettings = () => {
 					accept="image/*"
 					style={{ display: 'none' }}
 				/>
-
+				<input
+					onChange={(e) => {
+						handleUploadChange(e, true, change, bannerActions, dispatch);
+					}}
+					ref={changeFileRef}
+					type="file"
+					accept="image/*"
+					style={{ display: 'none' }}
+				/>
 				{bannerImages &&
 					bannerImages.map((image, i) => (
 						<Stack
+							key={i}
 							direction="row"
 							sx={{
 								position: 'relative',
@@ -76,21 +85,7 @@ const BannerSettings = () => {
 										},
 									}}
 								/>
-								<input
-									onChange={(e) => {
-										handleUploadChange(
-											e,
-											true,
-											change,
-											bannerActions,
-											dispatch
-										);
-									}}
-									ref={changeFileRef}
-									type="file"
-									accept="image/*"
-									style={{ display: 'none' }}
-								/>
+
 								<CustomDesignButton
 									bg={'var(--danger-dark)'}
 									textcolor="white"

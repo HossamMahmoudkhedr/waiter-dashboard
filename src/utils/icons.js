@@ -29,6 +29,16 @@ import { ReactComponent as Image } from '../assets/icons/image.svg';
 import { ReactComponent as Dots } from '../assets/icons/dots.svg';
 import { ReactComponent as Close } from '../assets/icons/close.svg';
 import { ReactComponent as Upload } from '../assets/icons/upload.svg';
+import { ReactComponent as LoactionIcon } from '../assets/icons/location.svg';
+import { ReactComponent as MobileHome } from '../assets/icons/mobile-home.svg';
+import { ReactComponent as Orders } from '../assets/icons/orders.svg';
+import { ReactComponent as Account } from '../assets/icons/account.svg';
+import { ReactComponent as Other } from '../assets/icons/other.svg';
+import { ReactComponent as Page } from '../assets/icons/page.svg';
+import { ReactComponent as Language } from '../assets/icons/language.svg';
+import { ReactComponent as Dollar } from '../assets/icons/dollar.svg';
+import { ReactComponent as Menu } from '../assets/icons/menu.svg';
+import { ReactComponent as CloseMenu } from '../assets/icons/x-lg.svg';
 
 export const icons = {
 	activities: <Activities />,
@@ -62,4 +72,14 @@ export const icons = {
 	dots: <Dots />,
 	close: <Close />,
 	upload: <Upload />,
+	location: <LoactionIcon />,
+	mobileHome: <MobileHome />,
+	orders: <Orders />,
+	account: <Account />,
+	other: <Other />,
+	page: <Page />,
+	language: <Language />,
+	dollar: <Dollar />,
+	menu: <Menu />,
+	closeMenu: <CloseMenu />,
 };

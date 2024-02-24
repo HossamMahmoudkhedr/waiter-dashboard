@@ -30,7 +30,7 @@ const AppBuilder = () => {
 			<Stack sx={{ gap: '2rem' }}>
 				<Stack
 					direction="row"
-					sx={{ gap: '1rem' }}>
+					sx={{ gap: '1rem', padding: { xs: '0rem 1rem', lg: 'unset' } }}>
 					<Typography
 						variant="body1"
 						sx={{ color: 'var(--icons-color)', fontWeight: '600' }}>
@@ -49,20 +49,33 @@ const AppBuilder = () => {
 						alignItems: 'center',
 						gap: '0.5rem',
 						color: 'var(--gray-color)',
+						padding: '0rem 1rem',
 					}}>
 					<span>{icons.mobileLarger}</span>
 					<Typography
 						variant="h1"
-						sx={{ fontSize: '2rem', fontWeight: '500' }}>
+						sx={{
+							fontSize: '2rem',
+							fontWeight: '600',
+							color: 'var(--gray-color)',
+						}}>
 						صانع التطبيقات
 					</Typography>
 				</Stack>
-				<Stack direction="row">
+				<Stack
+					direction="row"
+					className="stepper"
+					sx={{
+						overflowX: { xs: 'scroll', lg: 'unset' },
+						padding: { xs: '0.5rem 0', lg: 'unset' },
+						marginRight: { xs: '1rem', lg: 'unset' },
+					}}>
 					{stepperData.map((el, i) => (
 						<Stack
 							key={el.id}
 							direction="row"
 							sx={{
+								minWidth: { xs: 'fit-content', lg: 'unset' },
 								gap: '0.5rem',
 								padding: '0.75rem 1.25rem',
 								fontWeight: '500',

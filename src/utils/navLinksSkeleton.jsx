@@ -16,7 +16,6 @@ const NavLinksSkeleton = () => {
 				direction="row"
 				sx={{
 					justifyContent: 'space-between',
-					borderBottom: '1px solid var(--gray-lighter)',
 					padding: '0.5rem 2.5rem',
 				}}>
 				<Stack sx={{ gap: '0.5rem', alignItems: 'center' }}>
