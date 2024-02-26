@@ -41,7 +41,10 @@ const Tabs = () => {
 		<Grid
 			container
 			spacing={{ xs: 6, lg: 2 }}
-			sx={{ justifyContent: 'space-between' }}>
+			sx={{
+				justifyContent: 'space-between',
+				width: { xs: '100%', md: 'auto' },
+			}}>
 			<Grid
 				item
 				lg={3}
@@ -70,7 +73,11 @@ const Tabs = () => {
 			<Grid
 				item
 				lg={4.5}
-				xs={12}>
+				xs={12}
+				sx={{
+					paddingLeft: { xs: 'unset', md: '48px' },
+					paddingTop: { xs: 'unset', md: '48px' },
+				}}>
 				<Stack sx={{ gap: '1rem' }}>
 					<Heading text="التبويبات" />
 
@@ -120,7 +127,12 @@ const Tabs = () => {
 			</Grid>
 			<Grid
 				item
-				sx={{ justifyContent: 'center', display: 'flex' }}
+				sx={{
+					justifyContent: 'center',
+					display: 'flex',
+					paddingLeft: { xs: 'unset', md: '48px' },
+					paddingTop: { xs: 'unset', md: '48px' },
+				}}
 				lg={4.5}
 				xs={12}>
 				<DeviceFrame

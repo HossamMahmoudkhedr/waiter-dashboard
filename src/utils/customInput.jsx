@@ -11,6 +11,7 @@ const StyledInput = styled.input`
 	padding: 1rem 0.75rem;
 	font-size: 1rem;
 	font-weight: 500;
+	width: 100%;
 	color: ${(props) => (props.error ? '#ff3333' : ' var(--gray-color)')};
 	&::placeholder {
 		color: var(--gray-light);

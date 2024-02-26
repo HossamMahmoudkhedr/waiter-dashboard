@@ -15,11 +15,15 @@ const GeneralSettings = () => {
 		<Grid
 			container
 			spacing={{ xs: 6, lg: 2 }}
-			sx={{ justifyContent: 'center' }}>
+			sx={{ justifyContent: 'center', width: { xs: '100%', md: 'auto' } }}>
 			<Grid
 				item
 				lg={7.5}
-				xs={12}>
+				xs={12}
+				sx={{
+					paddingLeft: { xs: 'unset', md: '48px' },
+					paddingTop: { xs: 'unset', md: '48px' },
+				}}>
 				<Stack
 					sx={{
 						gap: '1.25rem',
@@ -69,7 +73,12 @@ const GeneralSettings = () => {
 
 			<Grid
 				item
-				sx={{ justifyContent: 'center', display: 'flex' }}
+				sx={{
+					justifyContent: 'center',
+					display: 'flex',
+					paddingLeft: { xs: 'unset', md: '48px' },
+					paddingTop: { xs: 'unset', md: '48px' },
+				}}
 				lg={4.5}
 				xs={12}>
 				<DeviceFrame
