@@ -6,13 +6,13 @@ import CustomButton from '../utils/customButton';
 import CreateApp from './createApp';
 import DesignApp from './designApp';
 import Review from './review';
-import Acceptance from './acceptance';
+import BankAccount from './bankAccount';
 
 const stepperContent = [
 	<CreateApp />,
 	<DesignApp />,
+	<BankAccount />,
 	<Review />,
-	<Acceptance />,
 ];
 const AppBuilder = () => {
 	const [chosenStep, setChosenStep] = useState(0);
@@ -117,22 +117,30 @@ const AppBuilder = () => {
 				</Stack>
 				<Box>{stepperContent[chosenStep]}</Box>
 				<Stack
-					direction="row"
+					direction={{ xs: 'column-reverse', md: 'row' }}
 					sx={{
 						justifyContent: 'space-between',
 						alignItems: 'center',
+						padding: { xs: '0 1rem', lg: 'unset' },
+						gap: { xs: '1rem', md: 'unset' },
 					}}>
 					<CustomButton
 						text="السابق"
 						textcolor="var(--black)"
 						bg="var(--gray-lighter)"
-						restprops={{ onClick: handleback }}
+						width="100%"
+						restprops={{
+							onClick: handleback,
+						}}
 					/>
 					<CustomButton
 						text="التالي"
 						textcolor="var(--white)"
 						bg="var(--primary-color)"
-						restprops={{ onClick: handleforward }}
+						width="100%"
+						restprops={{
+							onClick: handleforward,
+						}}
 					/>
 				</Stack>
 			</Stack>

@@ -2,11 +2,11 @@ import { Box, Grid, Stack } from '@mui/material';
 import React, { useState } from 'react';
 import AddButton from '../utils/addButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { DeviceFrameset } from 'react-device-frameset';
 import 'react-device-frameset/styles/marvel-devices.min.css';
 import { icons } from '../utils/icons';
 import { screensActions } from '../store/screens-slice';
 import StartingScreensSettings from './startingScreensSettings';
+import MobileFrame from '../utils/mobileFrame';
 
 const settings = [<StartingScreensSettings />];
 const StartingScreens = () => {
@@ -57,13 +57,7 @@ const StartingScreens = () => {
 				xs={12}
 				lg={4.5}>
 				<Box sx={{ width: 'fit-content' }}>
-					<DeviceFrameset
-						device="iPhone X"
-						height={'733px'}
-						width={'365px'}
-						style={{
-							position: 'relative',
-						}}>
+					<MobileFrame>
 						<Box
 							sx={{
 								width: '100%',
@@ -86,7 +80,7 @@ const StartingScreens = () => {
 								<Box component="span">{icons.leftSide}</Box>
 							</Stack>
 						</Box>
-					</DeviceFrameset>
+					</MobileFrame>
 				</Box>
 			</Grid>
 		</Grid>

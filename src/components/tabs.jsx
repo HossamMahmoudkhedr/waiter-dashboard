@@ -16,7 +16,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 const Tabs = () => {
 	const tabs = useSelector((state) => state.tabs.tabs);
 	const showSearchBar = useSelector((state) => state.tabs.showSearchBar);
-	const otherTab = tabs.filter((tab) => tab.id === 4);
+	// const otherTab = tabs.filter((tab) => tab.id === 4);
 	const subTabs = useSelector(
 		(state) => state.tabs.tabs.filter((tab) => tab.id === 4)[0].subTabs
 	);
@@ -112,38 +112,6 @@ const Tabs = () => {
 													</Box>
 												</DndProvider>
 											)
-
-										// <Stack
-										// 	component="li"
-										// 	direction="row"
-										// 	sx={{
-										// 		gap: '0.5rem',
-										// 		backgroundColor: 'var(--white)',
-										// 		padding: '0.75rem 1rem',
-										// 		borderRadius: '0.75rem',
-										// 		alignItems: 'center',
-										// 		width: '90%',
-										// 	}}>
-										// 	<Box
-										// 		component="span"
-										// 		height="20px">
-										// 		{icons.dots}
-										// 	</Box>
-										// 	<Box
-										// 		component="span"
-										// 		height="20px">
-										// 		{subTab.icon}
-										// 	</Box>
-										// 	<Typography
-										// 		variant="body1"
-										// 		sx={{
-										// 			fontWeight: '500',
-										// 			color: 'var(--gray-darker)',
-										// 			fontSize: '14px',
-										// 		}}>
-										// 		{subTab.name}
-										// 	</Typography>
-										// </Stack>
 									)}
 							</>
 						))}

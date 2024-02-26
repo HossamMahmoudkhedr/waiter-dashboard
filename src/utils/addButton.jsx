@@ -2,12 +2,14 @@ import { Box, Stack, Typography } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import CustomDesignButton from './customDesignButton';
 import { icons } from './icons';
-import { itemsActions } from '../store/items-slice';
 import { bannerActions } from '../store/banner-slice';
 import { squareActions } from '../store/square-slice';
 import styled from 'styled-components';
-import { screensActions } from '../store/screens-slice';
 import { screenImagesActions } from '../store/screen-images-slice';
+import Item from './item';
+import { itemsActions } from '../store/items-slice';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 const StyldStack = styled(Stack)`
 	&&:hover {
@@ -94,67 +96,32 @@ const AddButton = ({
 		};
 	}, []);
 
+	const moveItem = (dragIndex, hoverIndex) => {
+		const draggedTab = chosenItems[dragIndex];
+		const newTabs = [...chosenItems];
+		newTabs.splice(dragIndex, 1);
+		newTabs.splice(hoverIndex, 0, draggedTab);
+		dispatch(itemsActions.reOrderItems(newTabs));
+		activeItem(hoverIndex);
+		setSettingsContent(chosenItems[dragIndex].id - 1);
+	};
+
 	return (
 		<Stack sx={{ gap: '0.5rem' }}>
 			<Stack sx={{ gap: '0.5rem' }}>
 				{chosenItems.map((item, i) => (
-					<Stack
-						key={item.id}
-						direction="row"
-						sx={{
-							justifyContent: 'space-between',
-							alignItems: 'center',
-							padding: '0.75rem 1rem',
-							backgroundColor:
-								chosenItemIndex === i ? 'var(--primary-color)' : 'var(--white)',
-							borderRadius: '0.75rem',
-							cursor: 'pointer',
-						}}>
-						<Stack
-							onClick={() => {
-								activeItem(i);
-							}}
-							direction="row"
-							sx={{ gap: '0.5rem', alignItems: 'center' }}>
-							<Box
-								component="span"
-								height="16px">
-								{icons.dots}
-							</Box>
-							<Box
-								component="span"
-								sx={{
-									height: '24px',
-									fill: chosenItemIndex === i ? 'white' : '#344054',
-								}}>
-								{item.icon}
-							</Box>
-							<Typography
-								variant="body1"
-								sx={{
-									color:
-										chosenItemIndex === i
-											? 'var(--white)'
-											: 'var(--gray-darker)',
-									fontWeight: '500',
-								}}>
-								{item.name}
-							</Typography>
-						</Stack>
-						<Box
-							component="span"
-							onClick={() => {
-								handleRemoveItem(i);
-							}}
-							sx={{
-								height: '24px',
-								stroke: chosenItemIndex === i ? 'var(--white)' : '#344054',
-								position: 'relative',
-								zIndex: '2',
-							}}>
-							{icons.close}
-						</Box>
-					</Stack>
+					<DndProvider backend={HTML5Backend}>
+						<Item
+							index={i}
+							icon={item.icon}
+							chosenItemIndex={chosenItemIndex}
+							name={item.name}
+							key={item.id}
+							handleRemoveItem={handleRemoveItem}
+							activeItem={activeItem}
+							moveItem={moveItem}
+						/>
+					</DndProvider>
 				))}
 			</Stack>
 			<Box sx={{ position: 'relative' }}>
@@ -207,7 +174,12 @@ const AddButton = ({
 								}}>
 								<Box
 									component="span"
-									sx={{ height: '24px', fill: '#344054' }}>
+									sx={{
+										height: '24px',
+										fill: '#344054',
+										stroke: '#344054',
+										strokeWidth: '0.5px',
+									}}>
 									{item.icon}
 								</Box>
 								<Typography

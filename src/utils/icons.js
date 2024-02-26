@@ -39,6 +39,10 @@ import { ReactComponent as Language } from '../assets/icons/language.svg';
 import { ReactComponent as Dollar } from '../assets/icons/dollar.svg';
 import { ReactComponent as Menu } from '../assets/icons/menu.svg';
 import { ReactComponent as CloseMenu } from '../assets/icons/x-lg.svg';
+import { ReactComponent as Star } from '../assets/icons/star.svg';
+import { ReactComponent as CartIcon } from '../assets/icons/cart-icon.svg';
+import { ReactComponent as DarkPlus } from '../assets/icons/dark-plus.svg';
+import { ReactComponent as Minus } from '../assets/icons/minus.svg';
 
 export const icons = {
 	activities: <Activities />,
@@ -82,4 +86,8 @@ export const icons = {
 	dollar: <Dollar />,
 	menu: <Menu />,
 	closeMenu: <CloseMenu />,
+	star: <Star />,
+	cartIcon: <CartIcon />,
+	darkPlus: <DarkPlus />,
+	minus: <Minus />,
 };

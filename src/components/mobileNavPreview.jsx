@@ -22,6 +22,8 @@ const MobileNavPreview = () => {
 				gap: '1rem',
 				backgroundColor: 'white',
 				padding: '12px',
+				position: 'relative',
+				zIndex: 2,
 			}}>
 			<Stack
 				direction="row"

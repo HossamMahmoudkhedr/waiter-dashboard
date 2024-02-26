@@ -16,9 +16,14 @@ const StyledButton = styled(Button)`
 			color: ${(props) => props.textcolor};
 		}
 	}
+	@media (max-width: 899px) {
+		&& {
+			width: 100%;
+		}
+	}
 `;
 
-const CustomButton = ({ text, textcolor, bg, restprops }) => {
+const CustomButton = ({ text, textcolor, bg, width, restprops }) => {
 	return (
 		<StyledButton
 			disableElevation

@@ -9,11 +9,13 @@ const Heading = ({ text, subText }) => {
 				sx={{ fontSize: '1.5rem', fontWeight: '700' }}>
 				{text}
 			</Typography>
-			<Typography
-				variant="body1"
-				sx={{ fontSize: '1rem' }}>
-				{subText}
-			</Typography>
+			{subText && (
+				<Typography
+					variant="body1"
+					sx={{ fontSize: '1rem' }}>
+					{subText}
+				</Typography>
+			)}
 		</Stack>
 	);
 };

@@ -38,6 +38,9 @@ const itemsSlice = createSlice({
 				return a.id - b.id;
 			});
 		},
+		reOrderItems(state, action) {
+			state.items = action.payload;
+		},
 	},
 });
 

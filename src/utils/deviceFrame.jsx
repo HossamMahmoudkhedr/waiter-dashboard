@@ -1,11 +1,10 @@
 import { Box, Stack } from '@mui/material';
 import React from 'react';
-import { DeviceFrameset } from 'react-device-frameset';
-import 'react-device-frameset/styles/marvel-devices.min.css';
 import { icons } from './icons';
 import Feed from '../components/feed';
 import NavSkeleton from './navSkeleton';
 import NavLinksSkeleton from './navLinksSkeleton';
+import MobileFrame from './mobileFrame';
 
 const DeviceFrame = ({
 	navComponent,
@@ -15,16 +14,10 @@ const DeviceFrame = ({
 }) => {
 	return (
 		<Box sx={{ width: 'fit-content' }}>
-			<DeviceFrameset
-				device="iPhone X"
-				height={'733px'}
-				width={{ xs: '356px', lg: '365px' }}
-				style={{
-					position: 'relative',
-				}}>
+			<MobileFrame>
 				<Box
 					sx={{
-						width: '99%',
+						width: '100%',
 						height: '100%',
 						backgroundColor: 'var(--body-background-color)',
 					}}>
@@ -43,11 +36,6 @@ const DeviceFrame = ({
 					<Stack
 						gap={'1rem'}
 						width="100%">
-						{/* {chosenItems.map((el) => {
-								if (el.def === 'banner') {
-									return <div>Banner</div>;
-								}
-							})} */}
 						<Box
 							width="100%"
 							ref={mobileNavRef}>
@@ -65,7 +53,7 @@ const DeviceFrame = ({
 					</Stack>
 				</Box>
 				{navLinksComponent || <NavLinksSkeleton />}
-			</DeviceFrameset>
+			</MobileFrame>
 		</Box>
 	);
 };
