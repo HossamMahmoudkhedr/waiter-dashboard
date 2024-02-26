@@ -127,11 +127,14 @@ const Tabs = () => {
 			</Grid>
 			<Grid
 				item
+				paddingLeft={{
+					xs: '0px !important',
+					md: '48px',
+					lg: '16px !important',
+				}}
 				sx={{
 					justifyContent: 'center',
 					display: 'flex',
-					paddingLeft: { xs: 'unset', md: '48px' },
-					paddingTop: { xs: 'unset', md: '48px' },
 				}}
 				lg={4.5}
 				xs={12}>

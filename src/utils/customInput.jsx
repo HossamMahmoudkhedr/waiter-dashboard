@@ -33,7 +33,7 @@ const CustomInput = ({ text, name, type, error, restprops }) => {
 				type={type}
 				name={name}
 				id={name}
-				placeholder={text}
+				placeholder={type === 'date' ? '' : text}
 			/>
 
 			{error && (
