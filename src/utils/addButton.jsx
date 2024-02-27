@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import CustomDesignButton from './customDesignButton';
-import { icons, reduxIcons } from './icons';
+import { icons } from './icons';
 import { bannerActions } from '../store/banner-slice';
 import { squareActions } from '../store/square-slice';
 import styled from 'styled-components';
@@ -10,6 +10,7 @@ import Item from './item';
 import { itemsActions } from '../store/items-slice';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { TouchBackend } from 'react-dnd-touch-backend';
 
 const StyldStack = styled(Stack)`
 	&&:hover {
@@ -111,7 +112,11 @@ const AddButton = ({
 			<Stack sx={{ gap: '0.5rem' }}>
 				{chosenItems.map((item, i) => (
 					<DndProvider
-						backend={HTML5Backend}
+						backend={TouchBackend}
+						options={{
+							enableTouchEvents: true,
+							enableMouseEvents: true,
+						}}
 						key={i}>
 						<Item
 							index={i}
@@ -180,7 +185,7 @@ const AddButton = ({
 										height: '24px',
 										fill: '#344054',
 										stroke: '#344054',
-										strokeWidth: '0.5px',
+										strokeWidth: '0.1px',
 									}}>
 									{icons[item.icon]}
 								</Box>

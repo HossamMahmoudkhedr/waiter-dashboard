@@ -1,5 +1,5 @@
-import { Box, Stack } from '@mui/material';
-import React, { useRef, useState } from 'react';
+import { Stack } from '@mui/material';
+import React, { useEffect, useRef, useState } from 'react';
 import Heading from '../utils/heading';
 import CustomDesignButton from '../utils/customDesignButton';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +9,7 @@ import {
 	handleUploadChange,
 } from '../store/settingsActions';
 import { screenImagesActions } from '../store/screen-images-slice';
+import { dataActions } from '../store/data-slice';
 
 const StartingScreensSettings = () => {
 	const inputFileRef = useRef();
@@ -26,6 +27,11 @@ const StartingScreensSettings = () => {
 		changeFileRef.current.click();
 		inputFileRef.current.value = '';
 	};
+	useEffect(() => {
+		dispatch(
+			dataActions.addData({ key: 'startingScreenImages', value: screenImages })
+		);
+	}, [screenImages.length]);
 
 	return (
 		<Stack sx={{ gap: '1rem' }}>

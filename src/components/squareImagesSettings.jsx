@@ -1,5 +1,5 @@
 import { Grid, ImageList, Stack } from '@mui/material';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Heading from '../utils/heading';
 import { icons } from '../utils/icons';
 import CustomDesignButton from '../utils/customDesignButton';
@@ -9,6 +9,7 @@ import {
 	handleUploadChange,
 } from '../store/settingsActions';
 import { squareActions } from '../store/square-slice';
+import { dataActions } from '../store/data-slice';
 
 const SquareImagesSettings = () => {
 	const inputFileRef = useRef();
@@ -26,6 +27,10 @@ const SquareImagesSettings = () => {
 		changeFileRef.current.click();
 		inputFileRef.current.value = '';
 	};
+
+	useEffect(() => {
+		dispatch(dataActions.addData({ key: 'SquareImages', value: imagesList }));
+	}, [imagesList]);
 	return (
 		<Stack sx={{ gap: '1rem' }}>
 			<Heading

@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 const Switch = ({ toggleSwitch, targetActions, index, parentIndex }) => {
 	const dispatch = useDispatch();
 	const handleClick = () => {
-		console.log(index, parentIndex);
 		if (index !== undefined && parentIndex !== undefined) {
 			dispatch(
 				targetActions.toggleSwitchValue({

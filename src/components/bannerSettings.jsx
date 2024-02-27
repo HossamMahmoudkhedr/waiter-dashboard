@@ -5,6 +5,7 @@ import CustomDesignButton from '../utils/customDesignButton';
 import { icons } from '../utils/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { bannerActions } from '../store/banner-slice';
+import { dataActions } from '../store/data-slice';
 import {
 	handleRemoveImage,
 	handleUploadChange,
@@ -26,6 +27,9 @@ const BannerSettings = () => {
 		changeFileRef.current.click();
 		inputFileRef.current.value = '';
 	};
+	useEffect(() => {
+		dispatch(dataActions.addData({ key: 'bannerImages', value: bannerImages }));
+	}, [bannerImages.length]);
 	return (
 		<Stack sx={{ gap: '1rem' }}>
 			<Heading

@@ -33,6 +33,7 @@ const BankAccount = () => {
 	const selectRef = useRef(null);
 	const dispatch = useDispatch();
 	const [ibanError, setIbanError] = useState('');
+	const [bankName, setBankName] = useState('bank_name');
 
 	const makeInputNumbers = (e) => {
 		if (!/[0-9]/g.test(e.key) && e.key !== 'Backspace') e.preventDefault();
@@ -52,6 +53,11 @@ const BankAccount = () => {
 		if (name === 'bankAccountNum') {
 			value = `SA${value}`;
 		}
+
+		if (name === 'bankName') {
+			setBankName(value);
+		}
+
 		dispatch(dataActions.addData({ key: name, value: value }));
 	};
 
@@ -137,7 +143,7 @@ const BankAccount = () => {
 								id="bankName"
 								onChange={handleChange}
 								required
-								value={'bank_name'}
+								value={bankName}
 								ref={selectRef}>
 								<option
 									value="bank_name"

@@ -1,5 +1,5 @@
 import React from 'react';
-import { icons, reduxIcons } from './icons';
+import { icons } from './icons';
 import { Box, Stack, Typography } from '@mui/material';
 import { useDrag, useDrop } from 'react-dnd';
 
@@ -57,7 +57,8 @@ const Item = ({
 					sx={{ gap: '0.5rem', alignItems: 'center', width: '100%' }}>
 					<Box
 						component="span"
-						height="16px">
+						height="16px"
+						sx={{ cursor: 'grab' }}>
 						{icons.dots}
 					</Box>
 					<Box
@@ -66,7 +67,7 @@ const Item = ({
 							height: '24px',
 							fill: chosenItemIndex === index ? 'white' : '#344054',
 							stroke: chosenItemIndex === index ? 'white' : '#344054',
-							strokeWidth: '0.5px',
+							strokeWidth: '0.2px',
 						}}>
 						{icons[icon]}
 					</Box>

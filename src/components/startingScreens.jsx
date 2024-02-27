@@ -1,5 +1,5 @@
 import { Box, Grid, Stack } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddButton from '../utils/addButton';
 import { useDispatch, useSelector } from 'react-redux';
 import 'react-device-frameset/styles/marvel-devices.min.css';
@@ -7,6 +7,7 @@ import { icons } from '../utils/icons';
 import { screensActions } from '../store/screens-slice';
 import StartingScreensSettings from './startingScreensSettings';
 import MobileFrame from '../utils/mobileFrame';
+import { dataActions } from '../store/data-slice';
 
 const settings = [<StartingScreensSettings />];
 const StartingScreens = () => {
@@ -26,6 +27,12 @@ const StartingScreens = () => {
 	const images = useSelector((state) => state.screenImages.screenImages);
 
 	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(
+			dataActions.addData({ key: 'startingScreenItems', value: chosenItems })
+		);
+	}, [chosenItems.length]);
 	return (
 		<Grid
 			container

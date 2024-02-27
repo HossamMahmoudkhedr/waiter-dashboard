@@ -1,5 +1,5 @@
 import { Grid, Stack } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'react-device-frameset/styles/marvel-devices.min.css';
 import { useDispatch, useSelector } from 'react-redux';
 import BannerSettings from './bannerSettings';
@@ -10,6 +10,7 @@ import { itemsActions } from '../store/items-slice';
 import DeviceFrame from '../utils/deviceFrame';
 import NavLinksPreview from './navLinksPreview';
 import BarPreview from './barPreview';
+import { dataActions } from '../store/data-slice';
 
 const settings = [
 	<BannerSettings />,
@@ -31,6 +32,10 @@ const MainPage = () => {
 	const items = useSelector((state) => state.items.availableItems);
 
 	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(dataActions.addData({ key: 'chosenItems', value: chosenItems }));
+	}, [chosenItems.length]);
 
 	return (
 		<Grid

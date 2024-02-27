@@ -1,16 +1,23 @@
 import { Grid, Stack, Typography } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import DeviceFrame from '../utils/deviceFrame';
 import NavLinksPreview from './navLinksPreview';
 import Switch from '../utils/switch';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { generalSettingsActions } from '../store/general-settings-slice';
 import BarPreview from './barPreview';
+import { dataActions } from '../store/data-slice';
 
 const GeneralSettings = () => {
 	const generalSettings = useSelector(
 		(state) => state.generalSettings.generalSettings
 	);
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(
+			dataActions.addData({ key: 'generalSettings', value: generalSettings })
+		);
+	}, [generalSettings]);
 	return (
 		<Grid
 			container

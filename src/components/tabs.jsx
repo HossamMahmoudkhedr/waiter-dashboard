@@ -1,5 +1,5 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import DeviceFrame from '../utils/deviceFrame';
 import Switch from '../utils/switch';
 import Heading from '../utils/heading';
@@ -10,16 +10,25 @@ import Tab from '../utils/tab';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import BarPreview from './barPreview';
+import { dataActions } from '../store/data-slice';
+import { TouchBackend } from 'react-dnd-touch-backend';
 
 const Tabs = () => {
 	const tabs = useSelector((state) => state.tabs.tabs);
 	const showSearchBar = useSelector((state) => state.tabs.showSearchBar);
+	const dispatch = useDispatch();
 	// const otherTab = tabs.filter((tab) => tab.id === 4);
 	const subTabs = useSelector(
 		(state) => state.tabs.tabs.filter((tab) => tab.id === 4)[0].subTabs
 	);
 
-	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(dataActions.addData({ key: 'tabs', value: tabs }));
+		dispatch(
+			dataActions.addData({ key: 'showSearchBar', value: showSearchBar })
+		);
+	}, [tabs, subTabs, showSearchBar]);
+
 	const moveTab = (dragIndex, hoverIndex) => {
 		const draggedTab = tabs[dragIndex];
 		const newTabs = [...tabs];
@@ -90,7 +99,12 @@ const Tabs = () => {
 						}}>
 						{tabs.map((tab, i) => (
 							<React.Fragment key={i}>
-								<DndProvider backend={HTML5Backend}>
+								<DndProvider
+									backend={TouchBackend}
+									options={{
+										enableTouchEvents: true,
+										enableMouseEvents: true,
+									}}>
 									<Box width="100%">
 										<Tab
 											key={i}
@@ -108,7 +122,11 @@ const Tabs = () => {
 											subTab.icon &&
 											subTab.name && (
 												<DndProvider
-													backend={HTML5Backend}
+													backend={TouchBackend}
+													options={{
+														enableTouchEvents: true,
+														enableMouseEvents: true,
+													}}
 													key={i}>
 													<Box width={'90%'}>
 														<Tab
