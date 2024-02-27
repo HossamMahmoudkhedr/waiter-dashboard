@@ -37,6 +37,7 @@ const Tab = ({ name, icon, index, moveTab }) => {
 					borderRadius: '0.75rem',
 					alignItems: 'center',
 					width: '100%',
+					userSelect: 'none',
 				}}>
 				<Box
 					component="span"
