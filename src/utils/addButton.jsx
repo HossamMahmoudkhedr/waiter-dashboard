@@ -178,6 +178,7 @@ const AddButton = ({
 									gap: '0.5rem',
 									borderRadius: '0.5rem',
 									cursor: 'pointer',
+									userSelect: 'none',
 								}}>
 								<Box
 									component="span"
@@ -186,12 +187,17 @@ const AddButton = ({
 										fill: '#344054',
 										stroke: '#344054',
 										strokeWidth: '0.1px',
+										userSelect: 'none',
 									}}>
 									{icons[item.icon]}
 								</Box>
 								<Typography
 									variant="body1"
-									sx={{ color: 'var(--gray-darker)', fontWeight: '500' }}>
+									sx={{
+										color: 'var(--gray-darker)',
+										fontWeight: '500',
+										userSelect: 'none',
+									}}>
 									{item.name}
 								</Typography>
 							</StyldStack>
