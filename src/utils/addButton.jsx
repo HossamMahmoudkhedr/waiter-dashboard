@@ -182,7 +182,7 @@ const AddButton = ({
 										stroke: '#344054',
 										strokeWidth: '0.5px',
 									}}>
-									{reduxIcons[item.icon]}
+									{icons[item.icon]}
 								</Box>
 								<Typography
 									variant="body1"

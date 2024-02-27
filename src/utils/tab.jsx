@@ -47,7 +47,7 @@ const Tab = ({ name, icon, index, moveTab }) => {
 				<Box
 					component="span"
 					height="20px">
-					{reduxIcons[icon]}
+					{icons[icon]}
 				</Box>
 				<Typography
 					variant="body1"

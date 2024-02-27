@@ -68,7 +68,7 @@ const Item = ({
 							stroke: chosenItemIndex === index ? 'white' : '#344054',
 							strokeWidth: '0.5px',
 						}}>
-						{reduxIcons[icon]}
+						{icons[icon]}
 					</Box>
 					<Typography
 						variant="body1"

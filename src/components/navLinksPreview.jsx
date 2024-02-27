@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { reduxIcons } from '../utils/icons';
+import { icons, reduxIcons } from '../utils/icons';
 
 // The links in the bottom of the mobile app screen
 const NavLinksPreview = () => {
@@ -50,7 +50,7 @@ const NavLinksPreview = () => {
 										? 'var(--gary-darker) !important'
 										: 'var(--gray-color) !important',
 							}}>
-							{reduxIcons[tab.icon]}
+							{icons[tab.icon]}
 						</Box>
 						<Typography
 							variant="body1"
@@ -99,7 +99,7 @@ const NavLinksPreview = () => {
 																? 'var(--gary-darker) !important'
 																: 'var(--gray-color) !important',
 													}}>
-													{reduxIcons[subTab.icon]}
+													{icons[subTab.icon]}
 												</Box>
 												<Typography
 													variant="body1"

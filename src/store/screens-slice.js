@@ -9,7 +9,7 @@ const screensSlice = createSlice({
 			{
 				id: 1,
 				name: 'شاشة البداية',
-				icon: 3,
+				icon: 'twoPhones',
 				def: 'screens',
 			},
 		],

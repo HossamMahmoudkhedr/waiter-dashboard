@@ -9,19 +9,19 @@ const itemsSlice = createSlice({
 			{
 				id: 1,
 				name: 'بنر عريض',
-				icon: 0,
+				icon: 'adjacent',
 				def: 'banner',
 			},
 			{
 				id: 2,
 				name: 'منتجات ثابتة',
-				icon: 1,
+				icon: 'items',
 				def: 'staticProducts',
 			},
 			{
 				id: 3,
 				name: 'صور مربعة',
-				icon: 2,
+				icon: 'image',
 				def: 'squareImages',
 			},
 		],
