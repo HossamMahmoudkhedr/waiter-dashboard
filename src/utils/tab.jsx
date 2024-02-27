@@ -25,7 +25,8 @@ const Tab = ({ name, icon, index, moveTab }) => {
 	return (
 		<Box
 			key={index}
-			ref={drop}>
+			ref={drop}
+			sx={{ userSelect: 'none' }}>
 			<Stack
 				ref={drag}
 				component="li"
@@ -42,7 +43,7 @@ const Tab = ({ name, icon, index, moveTab }) => {
 				<Box
 					component="span"
 					height="20px"
-					sx={{ cursor: 'grab' }}>
+					sx={{ cursor: 'grab', userSelect: 'none' }}>
 					{icons.dots}
 				</Box>
 				<Box
@@ -56,6 +57,7 @@ const Tab = ({ name, icon, index, moveTab }) => {
 						fontWeight: '500',
 						color: 'var(--gray-darker)',
 						fontSize: '14px',
+						userSelect: 'none',
 					}}>
 					{name}
 				</Typography>
