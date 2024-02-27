@@ -34,6 +34,7 @@ const StartingScreens = () => {
 			<Grid
 				item
 				lg={3}
+				md={chosenItems.length === 0 ? 12 : 6}
 				xs={12}>
 				<AddButton
 					chosenItems={chosenItems}
@@ -48,6 +49,7 @@ const StartingScreens = () => {
 			<Grid
 				item
 				xs={12}
+				md={chosenItems.length === 0 ? 12 : 6}
 				lg={4.5}>
 				{settings[settingsContent]}
 			</Grid>

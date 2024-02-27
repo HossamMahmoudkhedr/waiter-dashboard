@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import { icons } from './icons';
+import { icons, reduxIcons } from './icons';
 
 const Tab = ({ name, icon, index, moveTab }) => {
 	const [, drag] = useDrag({
@@ -47,7 +47,7 @@ const Tab = ({ name, icon, index, moveTab }) => {
 				<Box
 					component="span"
 					height="20px">
-					{icon}
+					{reduxIcons[icon]}
 				</Box>
 				<Typography
 					variant="body1"

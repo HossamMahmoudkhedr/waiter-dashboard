@@ -41,11 +41,12 @@ const Tabs = () => {
 			spacing={{ xs: 6, lg: 2 }}
 			sx={{
 				justifyContent: 'space-between',
-				width: { xs: '100%', md: 'auto' },
+				width: { xs: '100%' },
 			}}>
 			<Grid
 				item
 				lg={3}
+				md={6}
 				xs={12}>
 				<Stack sx={{ gap: '1rem', color: 'var(--gray-color)' }}>
 					<Typography
@@ -71,6 +72,7 @@ const Tabs = () => {
 			<Grid
 				item
 				lg={4.5}
+				md={6}
 				xs={12}
 				sx={{
 					paddingLeft: { xs: 'unset', md: '48px' },
@@ -87,7 +89,7 @@ const Tabs = () => {
 							alignItems: 'flex-end',
 						}}>
 						{tabs.map((tab, i) => (
-							<>
+							<React.Fragment key={i}>
 								<DndProvider backend={HTML5Backend}>
 									<Box width="100%">
 										<Tab
@@ -105,7 +107,9 @@ const Tabs = () => {
 											subTab &&
 											subTab.icon &&
 											subTab.name && (
-												<DndProvider backend={HTML5Backend}>
+												<DndProvider
+													backend={HTML5Backend}
+													key={i}>
 													<Box width={'90%'}>
 														<Tab
 															key={i}
@@ -118,7 +122,7 @@ const Tabs = () => {
 												</DndProvider>
 											)
 									)}
-							</>
+							</React.Fragment>
 						))}
 					</Stack>
 				</Stack>

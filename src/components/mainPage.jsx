@@ -40,6 +40,7 @@ const MainPage = () => {
 			<Grid
 				item
 				xs={12}
+				md={chosenItems.length === 0 ? 12 : 6}
 				lg={3}>
 				<AddButton
 					items={items}
@@ -54,6 +55,7 @@ const MainPage = () => {
 			<Grid
 				item
 				xs={12}
+				md={chosenItems.length === 0 ? 12 : 6}
 				lg={4.5}>
 				<Stack>{settings[settingsContent]}</Stack>
 			</Grid>

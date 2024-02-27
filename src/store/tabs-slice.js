@@ -6,17 +6,17 @@ const tabsSlice = createSlice({
 	initialState: {
 		showSearchBar: true,
 		tabs: [
-			{ id: 1, name: 'الرئيسية', icon: icons.mobileHome },
-			{ id: 2, name: 'الطلبات', icon: icons.orders },
-			{ id: 3, name: 'الحساب', icon: icons.account },
+			{ id: 1, name: 'الرئيسية', icon: 4 },
+			{ id: 2, name: 'الطلبات', icon: 5 },
+			{ id: 3, name: 'الحساب', icon: 6 },
 			{
 				id: 4,
 				name: 'أخرى',
-				icon: icons.other,
+				icon: 7,
 				subTabs: [
-					{ id: 5, name: 'الصفحات التعريفية', icon: icons.page },
-					{ id: 6, name: 'اللغة', icon: icons.language },
-					{ id: 7, name: 'العملة', icon: icons.dollar },
+					{ id: 5, name: 'الصفحات التعريفية', icon: 8 },
+					{ id: 6, name: 'اللغة', icon: 9 },
+					{ id: 7, name: 'العملة', icon: 10 },
 				],
 			},
 		],

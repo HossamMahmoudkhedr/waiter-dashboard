@@ -7,28 +7,13 @@ import { useSelector } from 'react-redux';
 import StaticProductsPreview from './staticProductsPreview';
 
 const Feed = ({ chosenItemIndex }) => {
-	const bannerRef = useRef(null);
-	const squareImagesRef = useRef(null);
-	const staticProductsRef = useRef(null);
 	const [transform, setTransform] = useState('translateY(0)');
 	const chosenItems = useSelector((state) => state.items.items);
 
 	const content = {
-		banner: (
-			<Box ref={bannerRef}>
-				<BannerSkeleton />
-			</Box>
-		),
-		squareImages: (
-			<Box ref={squareImagesRef}>
-				<SquareImagesSkeleton />
-			</Box>
-		),
-		staticProducts: (
-			<Box ref={staticProductsRef}>
-				<StaticProductsPreview />
-			</Box>
-		),
+		banner: <BannerSkeleton />,
+		squareImages: <SquareImagesSkeleton />,
+		staticProducts: <StaticProductsPreview />,
 	};
 
 	useEffect(() => {

@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import CustomDesignButton from './customDesignButton';
-import { icons } from './icons';
+import { icons, reduxIcons } from './icons';
 import { bannerActions } from '../store/banner-slice';
 import { squareActions } from '../store/square-slice';
 import styled from 'styled-components';
@@ -110,7 +110,9 @@ const AddButton = ({
 		<Stack sx={{ gap: '0.5rem' }}>
 			<Stack sx={{ gap: '0.5rem' }}>
 				{chosenItems.map((item, i) => (
-					<DndProvider backend={HTML5Backend}>
+					<DndProvider
+						backend={HTML5Backend}
+						key={i}>
 						<Item
 							index={i}
 							icon={item.icon}
@@ -180,7 +182,7 @@ const AddButton = ({
 										stroke: '#344054',
 										strokeWidth: '0.5px',
 									}}>
-									{item.icon}
+									{reduxIcons[item.icon]}
 								</Box>
 								<Typography
 									variant="body1"

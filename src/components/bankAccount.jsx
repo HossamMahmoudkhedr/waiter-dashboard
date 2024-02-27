@@ -47,9 +47,12 @@ const BankAccount = () => {
 	};
 
 	const handleChange = (e) => {
-		dispatch(
-			dataActions.addData({ key: e.target.name, value: e.target.value })
-		);
+		let name = e.target.name;
+		let value = e.target.value;
+		if (name === 'bankAccountNum') {
+			value = `SA${value}`;
+		}
+		dispatch(dataActions.addData({ key: name, value: value }));
 	};
 
 	const handleSubmit = (e) => {
@@ -134,11 +137,11 @@ const BankAccount = () => {
 								id="bankName"
 								onChange={handleChange}
 								required
+								value={'bank_name'}
 								ref={selectRef}>
 								<option
 									value="bank_name"
-									disabled
-									selected>
+									disabled>
 									اسم البنك
 								</option>
 								{banks.map((bank) => (
@@ -174,7 +177,7 @@ const BankAccount = () => {
 						error={ibanError}
 						restprops={{
 							onKeyDown: makeInputNumbers,
-							maxlength: 22,
+							maxLength: 22,
 							onBlur: handleIbanError,
 							onChange: handleChange,
 						}}

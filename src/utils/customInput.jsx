@@ -59,7 +59,7 @@ const CustomInput = ({
 						}}></Box>
 				)}
 				<StyledInput
-					error={error ? true : false}
+					error={error}
 					{...restprops}
 					type={type}
 					name={name}

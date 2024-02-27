@@ -91,3 +91,18 @@ export const icons = {
 	darkPlus: <DarkPlus />,
 	minus: <Minus />,
 };
+
+// BE CAREFUL: when you change the order of this list you going to change the icons in the redux store
+export const reduxIcons = [
+	icons.adjacent,
+	icons.items,
+	icons.image,
+	icons.twoPhones,
+	icons.mobileHome,
+	icons.orders,
+	icons.account,
+	icons.other,
+	icons.page,
+	icons.language,
+	icons.dollar,
+];
