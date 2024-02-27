@@ -6,12 +6,7 @@ import NavSkeleton from './navSkeleton';
 import NavLinksSkeleton from './navLinksSkeleton';
 import MobileFrame from './mobileFrame';
 
-const DeviceFrame = ({
-	navComponent,
-	navLinksComponent,
-	chosenItemIndex,
-	mobileNavRef,
-}) => {
+const DeviceFrame = ({ barComponent, navLinksComponent, chosenItemIndex }) => {
 	return (
 		<Box sx={{ width: 'fit-content' }}>
 			<MobileFrame>
@@ -36,20 +31,11 @@ const DeviceFrame = ({
 					<Stack
 						gap={'1rem'}
 						width="100%">
-						<Box
-							width="100%"
-							ref={mobileNavRef}>
-							{navComponent || <NavSkeleton />}
-						</Box>
-						{chosenItemIndex !== undefined && mobileNavRef !== undefined && (
-							<Feed
-								chosenItemIndex={chosenItemIndex}
-								mobileNavRef={mobileNavRef}
-							/>
+						<Box width="100%">{barComponent || <NavSkeleton />}</Box>
+						{chosenItemIndex !== undefined && (
+							<Feed chosenItemIndex={chosenItemIndex} />
 						)}
-						{chosenItemIndex === undefined && mobileNavRef === undefined && (
-							<Feed />
-						)}
+						{chosenItemIndex === undefined && <Feed />}
 					</Stack>
 				</Box>
 				{navLinksComponent || <NavLinksSkeleton />}

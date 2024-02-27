@@ -6,6 +6,7 @@ import screensSlice from './screens-slice';
 import screenImagesSlice from './screen-images-slice';
 import tabsSlice from './tabs-slice';
 import generalSettingsSlice from './general-settings-slice';
+import dataSlice from './data-slice';
 
 const store = configureStore({
 	reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
 		screenImages: screenImagesSlice.reducer,
 		tabs: tabsSlice.reducer,
 		generalSettings: generalSettingsSlice.reducer,
+		data: dataSlice.reducer,
 	},
 });
 

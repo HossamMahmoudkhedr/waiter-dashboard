@@ -1,5 +1,5 @@
 import { Grid, Stack } from '@mui/material';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import 'react-device-frameset/styles/marvel-devices.min.css';
 import { useDispatch, useSelector } from 'react-redux';
 import BannerSettings from './bannerSettings';
@@ -9,7 +9,7 @@ import AddButton from '../utils/addButton';
 import { itemsActions } from '../store/items-slice';
 import DeviceFrame from '../utils/deviceFrame';
 import NavLinksPreview from './navLinksPreview';
-import MobileNavPreview from './mobileNavPreview';
+import BarPreview from './barPreview';
 
 const settings = [
 	<BannerSettings />,
@@ -18,8 +18,6 @@ const settings = [
 ];
 
 const MainPage = () => {
-	const mobileNavRef = useRef(null);
-
 	// This useState is responsible for making items active
 	const [chosenItemIndex, setChosenItemIndex] = useState(-1);
 
@@ -66,9 +64,8 @@ const MainPage = () => {
 				lg={4.5}>
 				<DeviceFrame
 					chosenItemIndex={chosenItemIndex}
-					mobileNavRef={mobileNavRef}
 					navLinksComponent={<NavLinksPreview />}
-					navComponent={<MobileNavPreview />}
+					barComponent={<BarPreview />}
 				/>
 			</Grid>
 		</Grid>

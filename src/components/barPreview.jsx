@@ -14,7 +14,7 @@ const StyledInput = styled.input`
 	}
 `;
 
-const MobileNavPreview = () => {
+const BarPreview = () => {
 	const showSearchBar = useSelector((state) => state.tabs.showSearchBar);
 	return (
 		<Stack
@@ -106,4 +106,4 @@ const MobileNavPreview = () => {
 	);
 };
 
-export default MobileNavPreview;
+export default BarPreview;

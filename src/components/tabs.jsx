@@ -1,10 +1,7 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import React from 'react';
-import 'react-device-frameset/styles/marvel-devices.min.css';
-import { icons } from '../utils/icons';
 import DeviceFrame from '../utils/deviceFrame';
 import Switch from '../utils/switch';
-import MobileNavPreview from './mobileNavPreview';
 import Heading from '../utils/heading';
 import { useDispatch, useSelector } from 'react-redux';
 import NavLinksPreview from './navLinksPreview';
@@ -12,6 +9,7 @@ import { tabsActions } from '../store/tabs-slice';
 import Tab from '../utils/tab';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import BarPreview from './barPreview';
 
 const Tabs = () => {
 	const tabs = useSelector((state) => state.tabs.tabs);
@@ -139,7 +137,7 @@ const Tabs = () => {
 				lg={4.5}
 				xs={12}>
 				<DeviceFrame
-					navComponent={<MobileNavPreview />}
+					barComponent={<BarPreview />}
 					navLinksComponent={<NavLinksPreview />}
 				/>
 			</Grid>

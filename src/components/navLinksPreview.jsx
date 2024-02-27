@@ -2,6 +2,7 @@ import { Box, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
+// The links in the bottom of the mobile app screen
 const NavLinksPreview = () => {
 	const [activeTab, setActiveTab] = useState(0);
 	const [showSubTabs, setSubTabs] = useState(false);

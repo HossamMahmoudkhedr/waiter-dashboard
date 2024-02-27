@@ -29,14 +29,4 @@ export const staticProducts = [
 		image: 'Product image.png',
 		quantity: 1,
 	},
-	{
-		id: 4,
-		name: 'هامبرغر شهي و لذيذ',
-		rate: '4.0',
-		numberOfPeople: '156',
-		price: '15.55',
-		type: 'همبرغر',
-		image: 'Product image.png',
-		quantity: 1,
-	},
 ];

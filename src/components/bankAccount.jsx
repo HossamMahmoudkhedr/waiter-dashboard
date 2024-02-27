@@ -1,10 +1,12 @@
-import { Box, Grid, Select, Stack, Typography } from '@mui/material';
+import { Box, Grid, Stack, Typography } from '@mui/material';
 import React, { useRef, useState } from 'react';
 import { banks } from '../data/banksData';
 import styled from 'styled-components';
 import { icons } from '../utils/icons';
 import CustomInput from '../utils/customInput';
 import Heading from '../utils/heading';
+import { useDispatch } from 'react-redux';
+import { dataActions } from '../store/data-slice';
 
 const StyledSelect = styled.select`
 	border: none;
@@ -29,13 +31,25 @@ const StyledSelect = styled.select`
 
 const BankAccount = () => {
 	const selectRef = useRef(null);
-	const [selectedBank, setSelectedBank] = useState('bank_name');
-	const handleBankChange = (e) => {
-		setSelectedBank(e.target.value);
-	};
+	const dispatch = useDispatch();
+	const [ibanError, setIbanError] = useState('');
 
 	const makeInputNumbers = (e) => {
 		if (!/[0-9]/g.test(e.key) && e.key !== 'Backspace') e.preventDefault();
+	};
+
+	const handleIbanError = (e) => {
+		if (e.target.value !== '' && e.target.value.length < 22) {
+			setIbanError('يجب ان يكون رقم الحساب البنكي 22 رقم');
+		} else {
+			setIbanError('');
+		}
+	};
+
+	const handleChange = (e) => {
+		dispatch(
+			dataActions.addData({ key: e.target.name, value: e.target.value })
+		);
 	};
 
 	const handleSubmit = (e) => {
@@ -50,7 +64,7 @@ const BankAccount = () => {
 			rowSpacing={{ xs: 6 }}
 			sx={{
 				width: { xs: '100%', lg: 'unset' },
-				padding: { xs: '0 1rem', lg: 'unset' },
+				padding: { xs: '0 1rem', lg: '0 5rem' },
 			}}>
 			<Grid
 				item
@@ -67,17 +81,22 @@ const BankAccount = () => {
 						name="ownerName"
 						type="text"
 						text={'الاسم'}
+						disabled={true}
+						restprops={{ onChange: handleChange }}
 					/>
 					<CustomInput
 						name="identityNumber"
 						type="text"
 						text={'رقم الهوية'}
-						restprops={{ onKeyDown: makeInputNumbers }}
+						disabled={true}
+						restprops={{ onKeyDown: makeInputNumbers, onChange: handleChange }}
 					/>
 					<CustomInput
 						name="identityExpireDate"
 						type="date"
+						required={true}
 						text={'تاريخ انتهاء الهوية'}
+						restprops={{ onChange: handleChange }}
 					/>
 				</Stack>
 			</Grid>
@@ -91,11 +110,18 @@ const BankAccount = () => {
 					</Box>
 
 					<Stack sx={{ gap: '0.8rem' }}>
-						<Typography
-							variant="body1"
-							sx={{ fontWeight: '700', color: 'var(--gray-color)' }}>
-							اسم البنك
-						</Typography>
+						<Box sx={{ position: 'relative', width: 'fit-content' }}>
+							<Box
+								component="span"
+								sx={{ position: 'absolute', left: '-15px', top: '0px' }}>
+								*
+							</Box>
+							<Typography
+								variant="body1"
+								sx={{ fontWeight: '700', color: 'var(--gray-color)' }}>
+								اسم البنك
+							</Typography>
+						</Box>
 						<Box
 							sx={{
 								position: 'relative',
@@ -104,10 +130,11 @@ const BankAccount = () => {
 								boxShadow: 'var(--gray-shadow)',
 							}}>
 							<StyledSelect
-								ref={selectRef}
-								onChange={(e) => {
-									handleBankChange(e);
-								}}>
+								name="bankName"
+								id="bankName"
+								onChange={handleChange}
+								required
+								ref={selectRef}>
 								<option
 									value="bank_name"
 									disabled
@@ -142,12 +169,23 @@ const BankAccount = () => {
 						name="bankAccountNum"
 						type="text"
 						text={'رقم الحساب البنكي'}
-						restprops={{ onKeyDown: makeInputNumbers }}
+						hasCountryCode={true}
+						required={true}
+						error={ibanError}
+						restprops={{
+							onKeyDown: makeInputNumbers,
+							maxlength: 22,
+							onBlur: handleIbanError,
+							onChange: handleChange,
+						}}
 					/>
+
 					<CustomInput
 						name="accountName"
 						type="text"
 						text={'اسم الحساب'}
+						required={true}
+						restprops={{ onChange: handleChange }}
 					/>
 				</Stack>
 			</Grid>
@@ -167,7 +205,9 @@ const BankAccount = () => {
 						name="commercialNum"
 						type="text"
 						text={'رقم السجل التجاري'}
-						restprops={{ onKeyDown: makeInputNumbers }}
+						disabled={true}
+						required={true}
+						restprops={{ onKeyDown: makeInputNumbers, onChange: handleChange }}
 					/>
 				</Stack>
 			</Grid>

@@ -1,11 +1,11 @@
 import { Grid, Stack, Typography } from '@mui/material';
 import React from 'react';
 import DeviceFrame from '../utils/deviceFrame';
-import MobileNavPreview from './mobileNavPreview';
 import NavLinksPreview from './navLinksPreview';
 import Switch from '../utils/switch';
 import { useSelector } from 'react-redux';
 import { generalSettingsActions } from '../store/general-settings-slice';
+import BarPreview from './barPreview';
 
 const GeneralSettings = () => {
 	const generalSettings = useSelector(
@@ -85,7 +85,7 @@ const GeneralSettings = () => {
 				lg={4.5}
 				xs={12}>
 				<DeviceFrame
-					navComponent={<MobileNavPreview />}
+					barComponent={<BarPreview />}
 					navLinksComponent={<NavLinksPreview />}
 				/>
 			</Grid>

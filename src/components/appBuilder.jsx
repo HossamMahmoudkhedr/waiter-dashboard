@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { icons } from '../utils/icons';
 import { stepperData } from '../data/appBuilderStepper';
 import CustomButton from '../utils/customButton';
@@ -7,6 +7,7 @@ import CreateApp from './createApp';
 import DesignApp from './designApp';
 import Review from './review';
 import BankAccount from './bankAccount';
+import { useSelector } from 'react-redux';
 
 const stepperContent = [
 	<CreateApp />,
@@ -16,6 +17,9 @@ const stepperContent = [
 ];
 const AppBuilder = () => {
 	const [chosenStep, setChosenStep] = useState(0);
+
+	const data = useSelector((state) => state.data.data);
+
 	const handleback = () => {
 		chosenStep > 0 ? setChosenStep((prev) => (prev -= 1)) : setChosenStep(0);
 	};
@@ -24,6 +28,9 @@ const AppBuilder = () => {
 			? setChosenStep((prev) => (prev += 1))
 			: setChosenStep(stepperData.length - 1);
 	};
+	useEffect(() => {
+		console.log(data);
+	}, [chosenStep, data]);
 
 	return (
 		<Box>
