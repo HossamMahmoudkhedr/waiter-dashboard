@@ -45,7 +45,7 @@ const StartingScreensSettings = () => {
 					handleUploadChange(e, false, null, screenImagesActions, dispatch);
 				}}
 				type="file"
-				accept="images/*"
+				accept="image/*"
 				style={{ display: 'none' }}
 			/>
 			<Stack>
