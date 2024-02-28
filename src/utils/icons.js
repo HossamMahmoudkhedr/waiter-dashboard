@@ -43,6 +43,7 @@ import { ReactComponent as Star } from '../assets/icons/star.svg';
 import { ReactComponent as CartIcon } from '../assets/icons/cart-icon.svg';
 import { ReactComponent as DarkPlus } from '../assets/icons/dark-plus.svg';
 import { ReactComponent as Minus } from '../assets/icons/minus.svg';
+import { ReactComponent as Move } from '../assets/icons/move.svg';
 
 export const icons = {
 	activities: <Activities />,
@@ -90,4 +91,5 @@ export const icons = {
 	cartIcon: <CartIcon />,
 	darkPlus: <DarkPlus />,
 	minus: <Minus />,
+	move: <Move />,
 };
