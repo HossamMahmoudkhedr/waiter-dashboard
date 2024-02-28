@@ -1,7 +1,6 @@
 import React from 'react';
 import { icons } from './icons';
 import { Box, Stack, Typography } from '@mui/material';
-import { useDrag, useDrop } from 'react-dnd';
 import { useSelector } from 'react-redux';
 import { Draggable } from 'react-beautiful-dnd';
 
@@ -12,7 +11,6 @@ const Item = ({
 	name,
 	handleRemoveItem,
 	activeItem,
-	moveItem,
 	id,
 }) => {
 	const chosenItems = useSelector((state) => state.items.items);

@@ -24,13 +24,13 @@ const Feed = ({ chosenItemIndex }) => {
 					setTransform(`translateY(-16%)`);
 					break;
 				case 2:
-					setTransform(`translateY(-33%)`);
+					setTransform(`translateY(-50%)`);
 					break;
 				case 3:
-					setTransform(`translateY(-54%)`);
+					setTransform(`translateY(-51%)`);
 					break;
 				case 4:
-					setTransform(`translateY(-55%)`);
+					setTransform(`translateY(-63%)`);
 					break;
 				case 5:
 					setTransform(`translateY(-66%)`);

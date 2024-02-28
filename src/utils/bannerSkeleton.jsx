@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, Skeleton, Stack, Typography } from '@mui/material';
-import { useSelector } from 'react-redux';
 import BannerPreview from '../components/bannerPreview';
 
 const BannerSkeleton = ({ bannerImages }) => {

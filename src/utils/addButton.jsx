@@ -8,11 +8,7 @@ import styled from 'styled-components';
 import { screenImagesActions } from '../store/screen-images-slice';
 import Item from './item';
 import { itemsActions } from '../store/items-slice';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { TouchBackend } from 'react-dnd-touch-backend';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { Provider } from 'react-redux';
 
 const StyldStack = styled(Stack)`
 	&&:hover {

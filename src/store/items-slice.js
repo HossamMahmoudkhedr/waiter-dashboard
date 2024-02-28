@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { icons } from '../utils/icons';
 
 const itemsSlice = createSlice({
 	name: 'items',

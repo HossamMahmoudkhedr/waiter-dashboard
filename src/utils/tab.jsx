@@ -3,7 +3,7 @@ import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { icons } from './icons';
 
-const Tab = ({ name, icon, index, id, moveTab }) => {
+const Tab = ({ name, icon, index, id }) => {
 	return (
 		<Draggable
 			style={{ width: '100%' }}

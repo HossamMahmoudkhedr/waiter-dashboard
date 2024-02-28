@@ -1,4 +1,4 @@
-import { Box, Grid, Stack, Typography } from '@mui/material';
+import { Grid, Stack, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
 import DeviceFrame from '../utils/deviceFrame';
 import Switch from '../utils/switch';
@@ -105,7 +105,6 @@ const Tabs = () => {
 													index={index}
 													name={tab.name}
 													icon={tab.icon}
-													moveTab={moveTab}
 													id={tab.id}
 												/>
 												{tab.subTabs && (
@@ -127,7 +126,6 @@ const Tabs = () => {
 																				index={index}
 																				name={subTab.name}
 																				icon={subTab.icon}
-																				moveSubTab={moveSubTab}
 																				id={subTab.id}
 																			/>
 																		</React.Fragment>

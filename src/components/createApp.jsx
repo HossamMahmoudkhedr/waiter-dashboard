@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const CreateApp = ({ setDisabled }) => {
-	setDisabled(false);
+	useEffect(() => {
+		setDisabled(false);
+	}, []);
+
 	return <div>CreateApp</div>;
 };
 

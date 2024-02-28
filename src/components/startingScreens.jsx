@@ -9,7 +9,7 @@ import StartingScreensSettings from './startingScreensSettings';
 import MobileFrame from '../utils/mobileFrame';
 import { dataActions } from '../store/data-slice';
 
-const settings = [<StartingScreensSettings />];
+const settings = { screens: <StartingScreensSettings /> };
 const StartingScreens = () => {
 	// This useState is responsible for making items active
 	const [chosenItemIndex, setChosenItemIndex] = useState(-1);

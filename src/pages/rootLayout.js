@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import SideBar from '../components/sideBar';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { icons } from '../utils/icons';
 import styled from 'styled-components';
 import { Provider } from 'react-redux';
