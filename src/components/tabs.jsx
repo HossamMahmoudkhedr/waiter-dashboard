@@ -7,17 +7,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import NavLinksPreview from './navLinksPreview';
 import { tabsActions } from '../store/tabs-slice';
 import Tab from '../utils/tab';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 import BarPreview from './barPreview';
 import { dataActions } from '../store/data-slice';
-import { TouchBackend } from 'react-dnd-touch-backend';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 const Tabs = () => {
 	const tabs = useSelector((state) => state.tabs.tabs);
 	const showSearchBar = useSelector((state) => state.tabs.showSearchBar);
 	const dispatch = useDispatch();
-	// const otherTab = tabs.filter((tab) => tab.id === 4);
 	const subTabs = useSelector(
 		(state) => state.tabs.tabs.filter((tab) => tab.id === 4)[0].subTabs
 	);
@@ -27,31 +24,31 @@ const Tabs = () => {
 		dispatch(
 			dataActions.addData({ key: 'showSearchBar', value: showSearchBar })
 		);
-	}, [tabs, subTabs, showSearchBar]);
+	}, [tabs, showSearchBar]);
 
-	const moveTab = (dragIndex, hoverIndex) => {
-		const draggedTab = tabs[dragIndex];
-		const newTabs = [...tabs];
-		newTabs.splice(dragIndex, 1);
-		newTabs.splice(hoverIndex, 0, draggedTab);
-		dispatch(tabsActions.reOrderTabs(newTabs));
+	const moveTab = (result) => {
+		if (!result.destination) return; // Dragged outside the list
+		const draggedTab = tabs[result.source.index];
+		const reorderedTabs = Array.from(tabs);
+		reorderedTabs.splice(result.source.index, 1);
+		reorderedTabs.splice(result.destination.index, 0, draggedTab);
+		dispatch(tabsActions.reOrderTabs(reorderedTabs));
 	};
-	const moveSubTab = (dragIndex, hoverIndex) => {
-		const draggedTab = subTabs[dragIndex];
-		const newTabs = [...subTabs];
-		newTabs.splice(dragIndex, 1);
-		newTabs.splice(hoverIndex, 0, draggedTab);
-		dispatch(tabsActions.reOrderSubTabs(newTabs));
+
+	const moveSubTab = (result) => {
+		if (!result.destination) return; // Dragged outside the list
+		const draggedTab = subTabs[result.source.index];
+		const reorderedTabs = Array.from(subTabs);
+		reorderedTabs.splice(result.source.index, 1);
+		reorderedTabs.splice(result.destination.index, 0, draggedTab);
+		dispatch(tabsActions.reOrderSubTabs(reorderedTabs));
 	};
 
 	return (
 		<Grid
 			container
 			spacing={{ xs: 6, lg: 2 }}
-			sx={{
-				justifyContent: 'space-between',
-				width: { xs: '100%' },
-			}}>
+			sx={{ justifyContent: 'space-between', width: { xs: '100%' } }}>
 			<Grid
 				item
 				lg={3}
@@ -89,60 +86,67 @@ const Tabs = () => {
 				}}>
 				<Stack sx={{ gap: '1rem' }}>
 					<Heading text="التبويبات" />
-
-					<Stack
-						component="ul"
-						sx={{
-							gap: '0.5rem',
-							width: { xs: '100%', lg: '85%' },
-							alignItems: 'flex-end',
-						}}>
-						{tabs.map((tab, i) => (
-							<React.Fragment key={i}>
-								<DndProvider
-									backend={TouchBackend}
-									options={{
-										enableTouchEvents: true,
-										enableMouseEvents: true,
+					<DragDropContext onDragEnd={moveTab}>
+						<Droppable droppableId="tabs">
+							{(provided) => (
+								<Stack
+									{...provided.droppableProps}
+									ref={provided.innerRef}
+									component="ul"
+									sx={{
+										gap: '0.5rem',
+										width: { xs: '100%', lg: '85%' },
+										alignItems: 'flex-end',
 									}}>
-									<Box width="100%">
-										<Tab
-											key={i}
-											name={tab.name}
-											icon={tab.icon}
-											index={i}
-											moveTab={moveTab}
-										/>
-									</Box>
-								</DndProvider>
-								{tab.subTabs &&
-									tab.subTabs.map(
-										(subTab, i) =>
-											subTab &&
-											subTab.icon &&
-											subTab.name && (
-												<DndProvider
-													backend={TouchBackend}
-													options={{
-														enableTouchEvents: true,
-														enableMouseEvents: true,
-													}}
-													key={i}>
-													<Box width={'90%'}>
-														<Tab
-															key={i}
-															name={subTab.name}
-															icon={subTab.icon}
-															index={i}
-															moveTab={moveSubTab}
-														/>
-													</Box>
-												</DndProvider>
-											)
-									)}
-							</React.Fragment>
-						))}
-					</Stack>
+									{tabs.map((tab, index) => {
+										return (
+											<React.Fragment key={tab.id}>
+												<Tab
+													index={index}
+													name={tab.name}
+													icon={tab.icon}
+													moveTab={moveTab}
+													id={tab.id}
+												/>
+												{tab.subTabs && (
+													<DragDropContext onDragEnd={moveSubTab}>
+														<Droppable droppableId="subTabs">
+															{(provided) => (
+																<Stack
+																	{...provided.droppableProps}
+																	ref={provided.innerRef}
+																	component="ul"
+																	sx={{
+																		gap: '0.5rem',
+																		width: '80%',
+																		alignItems: 'flex-end',
+																	}}>
+																	{tab.subTabs.map((subTab, index) => (
+																		<React.Fragment key={subTab.id}>
+																			<Tab
+																				index={index}
+																				name={subTab.name}
+																				icon={subTab.icon}
+																				moveSubTab={moveSubTab}
+																				id={subTab.id}
+																			/>
+																		</React.Fragment>
+																	))}
+
+																	{provided.placeholder}
+																</Stack>
+															)}
+														</Droppable>
+													</DragDropContext>
+												)}
+											</React.Fragment>
+										);
+									})}
+									{provided.placeholder}
+								</Stack>
+							)}
+						</Droppable>
+					</DragDropContext>
 				</Stack>
 			</Grid>
 			<Grid
@@ -152,10 +156,7 @@ const Tabs = () => {
 					md: '48px',
 					lg: '16px !important',
 				}}
-				sx={{
-					justifyContent: 'center',
-					display: 'flex',
-				}}
+				sx={{ justifyContent: 'center', display: 'flex' }}
 				lg={4.5}
 				xs={12}>
 				<DeviceFrame
