@@ -2,7 +2,6 @@ import { Box, Stack, Typography } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import CustomDesignButton from './customDesignButton';
 import { icons } from './icons';
-import { bannerActions } from '../store/banner-slice';
 import { squareActions } from '../store/square-slice';
 import styled from 'styled-components';
 import { screenImagesActions } from '../store/screen-images-slice';
@@ -64,9 +63,7 @@ const AddButton = ({
 		setChosenItemIndex(0);
 		setSettingsContent(chosenItems[0].def);
 
-		if (chosenItems[index].def === 'banner') {
-			dispatch(bannerActions.resetBanner());
-		} else if (chosenItems[index].def === 'squareImages') {
+		if (chosenItems[index].def === 'squareImages') {
 			dispatch(squareActions.resetList());
 		} else if (chosenItems[index].def === 'screens') {
 			dispatch(screenImagesActions.resetScreens());
