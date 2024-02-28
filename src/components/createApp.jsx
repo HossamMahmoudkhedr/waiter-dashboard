@@ -1,6 +1,7 @@
 import React from 'react';
 
-const CreateApp = () => {
+const CreateApp = ({ setDisabled }) => {
+	setDisabled(false);
 	return <div>CreateApp</div>;
 };
 

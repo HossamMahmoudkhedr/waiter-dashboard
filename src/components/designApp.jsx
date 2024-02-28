@@ -1,10 +1,11 @@
 import { Box, Stack, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { designData } from '../data/designStepData';
 import MainPage from './mainPage';
 import StartingScreens from './startingScreens';
 import Tabs from './tabs';
 import GeneralSettings from './generalSettings';
+import { useSelector } from 'react-redux';
 
 const content = [
 	<MainPage />,
@@ -13,8 +14,16 @@ const content = [
 	<GeneralSettings />,
 ];
 
-const DesignApp = () => {
+const DesignApp = ({ setDisabled }) => {
 	const [chosenContent, setChosenContent] = useState(0);
+	const chosenItems = useSelector((state) => state.items.items);
+
+	useEffect(() => {
+		if (chosenItems.length > 0) {
+			setDisabled(false);
+		}
+	}, []);
+
 	const handleClick = (index) => {
 		setChosenContent(index);
 	};

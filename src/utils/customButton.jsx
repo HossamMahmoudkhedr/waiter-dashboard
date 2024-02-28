@@ -23,12 +23,13 @@ const StyledButton = styled(Button)`
 	}
 `;
 
-const CustomButton = ({ text, textcolor, bg, width, restprops }) => {
+const CustomButton = ({ text, textcolor, bg, width, type, restprops }) => {
 	return (
 		<StyledButton
 			disableElevation
 			variant="contained"
 			textcolor={textcolor}
+			type={type || 'button'}
 			bg={bg}
 			{...restprops}>
 			{text}

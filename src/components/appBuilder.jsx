@@ -9,25 +9,29 @@ import Review from './review';
 import BankAccount from './bankAccount';
 import { useSelector } from 'react-redux';
 
-const stepperContent = [
-	<CreateApp />,
-	<DesignApp />,
-	<BankAccount />,
-	<Review />,
-];
 const AppBuilder = () => {
 	const [chosenStep, setChosenStep] = useState(0);
+	const [disabled, setDisabled] = useState(true);
 
 	const data = useSelector((state) => state.data.data);
 
 	const handleback = () => {
 		chosenStep > 0 ? setChosenStep((prev) => (prev -= 1)) : setChosenStep(0);
+		setDisabled(true);
 	};
-	const handleforward = () => {
+	const handleforward = (e) => {
+		e.preventDefault();
 		chosenStep < stepperData.length - 1
 			? setChosenStep((prev) => (prev += 1))
 			: setChosenStep(stepperData.length - 1);
+		setDisabled(true);
 	};
+	const stepperContent = [
+		<CreateApp setDisabled={setDisabled} />,
+		<DesignApp setDisabled={setDisabled} />,
+		<BankAccount setDisabled={setDisabled} />,
+		<Review />,
+	];
 	useEffect(() => {
 		console.log(data);
 	}, [chosenStep, data]);
@@ -145,8 +149,10 @@ const AppBuilder = () => {
 						textcolor="var(--white)"
 						bg="var(--primary-color)"
 						width="100%"
+						type="button"
 						restprops={{
 							onClick: handleforward,
+							disabled: disabled,
 						}}
 					/>
 				</Stack>

@@ -162,6 +162,18 @@ const BannerSettings = ({ currentBanner, chosenItemIndex }) => {
 						restporps={{ onClick: handleUploadClick }}
 					/>
 				)}
+				<Stack
+					direction="row"
+					sx={{ justifyContent: 'center' }}>
+					<Typography
+						variant="caption"
+						sx={{
+							color: 'var(--gray-darker)',
+							fontSize: '0.9rem',
+						}}>
+						* قم بإضافة صورة تملأ المساحة المحددة *
+					</Typography>
+				</Stack>
 			</Stack>
 		</Stack>
 	);

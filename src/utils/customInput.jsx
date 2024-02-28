@@ -38,6 +38,7 @@ const CustomInput = ({
 					</Box>
 				)}
 				<Typography
+					component="label"
 					variant="body1"
 					sx={{ fontWeight: '700', color: 'var(--gray-color)' }}>
 					{text}

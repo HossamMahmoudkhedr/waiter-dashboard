@@ -1,12 +1,13 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { banks } from '../data/banksData';
 import styled from 'styled-components';
 import { icons } from '../utils/icons';
 import CustomInput from '../utils/customInput';
 import Heading from '../utils/heading';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { dataActions } from '../store/data-slice';
+import moment from 'moment-hijri';
 
 const StyledSelect = styled.select`
 	border: none;
@@ -29,12 +30,43 @@ const StyledSelect = styled.select`
 	}
 `;
 
-const BankAccount = () => {
+const StyledInput = styled.input`
+	outline: none;
+	border: none;
+	// width: 33.33%;
+	font-size: 1rem;
+	&::placeholder {
+		color: var(--gray-light);
+	}
+	&[disabled] {
+		background-color: white;
+	}
+`;
+
+const BankAccount = ({ setDisabled }) => {
+	const data = useSelector((state) => state.data.data);
 	const selectRef = useRef(null);
 	const dispatch = useDispatch();
 	const [ibanError, setIbanError] = useState('');
-	const [bankName, setBankName] = useState('bank_name');
+	const [bankName, setBankName] = useState(
+		data.bankName ? data.bankName : 'bank_name'
+	);
+	const [identityNumber, setIdentityNumber] = useState('');
+	const [hijri, setHijri] = useState(data.hijri ? data.hijri : '');
 
+	useEffect(() => {
+		if (
+			data.date &&
+			data.bankName &&
+			data.bankAccountNum &&
+			data.bankAccountNum.length === 24 &&
+			data.accountName
+		) {
+			setDisabled(false);
+		} else {
+			setDisabled(true);
+		}
+	}, [data]);
 	const makeInputNumbers = (e) => {
 		if (!/[0-9]/g.test(e.key) && e.key !== 'Backspace') e.preventDefault();
 	};
@@ -58,6 +90,21 @@ const BankAccount = () => {
 			setBankName(value);
 		}
 
+		if (name === 'identityNumber') {
+			setIdentityNumber(value);
+		}
+
+		if (name === 'date') {
+			let hijriHistory = moment(value, 'YYYY-M-D').format('iYYYY/iM/iD');
+			setHijri(hijriHistory);
+
+			dispatch(
+				dataActions.addData({
+					key: 'hijri',
+					value: hijriHistory,
+				})
+			);
+		}
 		dispatch(dataActions.addData({ key: name, value: value }));
 	};
 
@@ -91,22 +138,82 @@ const BankAccount = () => {
 						type="text"
 						text={'الاسم'}
 						disabled={true}
-						restprops={{ onChange: handleChange }}
+						restprops={{
+							onChange: handleChange,
+							value: data.ownerName && data.ownerName,
+						}}
 					/>
 					<CustomInput
 						name="identityNumber"
 						type="text"
 						text={'رقم الهوية'}
 						disabled={true}
-						restprops={{ onKeyDown: makeInputNumbers, onChange: handleChange }}
+						restprops={{
+							onKeyDown: makeInputNumbers,
+							onChange: handleChange,
+							maxLength: 10,
+							value: data.identityNumber && data.identityNumber,
+						}}
 					/>
-					<CustomInput
+					{/* <CustomInput
 						name="identityExpireDate"
 						type="date"
 						required={true}
 						text={'تاريخ انتهاء الهوية'}
 						restprops={{ onChange: handleChange }}
-					/>
+					/> */}
+					<Stack sx={{ gap: '0.5rem', width: '100%' }}>
+						<Box sx={{ position: 'relative', width: 'fit-content' }}>
+							<Box
+								component="span"
+								sx={{ position: 'absolute', left: '-15px', top: '0px' }}>
+								*
+							</Box>
+
+							<Typography
+								component="label"
+								variant="body1"
+								sx={{ fontWeight: '700', color: 'var(--gray-color)' }}>
+								تاريخ انتهاء الهوية
+							</Typography>
+						</Box>
+						<Stack
+							direction="row"
+							sx={{
+								borderRadius: '1rem',
+								backgroundColor: 'var(--white)',
+								boxShadow: 'var(--gray-shadow)',
+								width: '100%',
+								overflow: 'hidden',
+								padding: '1rem 0.75rem',
+								width: '100%',
+							}}>
+							<StyledInput
+								style={{ width: '50%' }}
+								type="text"
+								value={identityNumber}
+								disabled
+								placeholder="رقم الهوية"
+							/>
+							<Stack
+								direction="row"
+								justifyContent={'center'}>
+								<StyledInput
+									name="hijri"
+									style={{ width: '36%' }}
+									disabled
+									value={hijri}
+									type="text"
+								/>
+								<StyledInput
+									type="date"
+									name="date"
+									onChange={handleChange}
+									value={data.date && data.date}
+								/>
+							</Stack>
+						</Stack>
+					</Stack>
 				</Stack>
 			</Grid>
 			<Grid
@@ -186,6 +293,7 @@ const BankAccount = () => {
 							maxLength: 22,
 							onBlur: handleIbanError,
 							onChange: handleChange,
+							value: data.bankAccountNum && data.bankAccountNum.slice(2),
 						}}
 					/>
 
@@ -194,7 +302,10 @@ const BankAccount = () => {
 						type="text"
 						text={'اسم الحساب'}
 						required={true}
-						restprops={{ onChange: handleChange }}
+						restprops={{
+							onChange: handleChange,
+							value: data.accountName && data.accountName,
+						}}
 					/>
 				</Stack>
 			</Grid>
@@ -215,8 +326,11 @@ const BankAccount = () => {
 						type="text"
 						text={'رقم السجل التجاري'}
 						disabled={true}
-						required={true}
-						restprops={{ onKeyDown: makeInputNumbers, onChange: handleChange }}
+						restprops={{
+							onKeyDown: makeInputNumbers,
+							onChange: handleChange,
+							value: data.commercialNum && data.commercialNum,
+						}}
 					/>
 				</Stack>
 			</Grid>

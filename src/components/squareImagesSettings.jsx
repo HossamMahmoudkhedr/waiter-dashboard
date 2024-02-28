@@ -1,4 +1,4 @@
-import { Grid, ImageList, Stack } from '@mui/material';
+import { Grid, ImageList, Stack, Typography } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import Heading from '../utils/heading';
 import { icons } from '../utils/icons';
@@ -125,6 +125,18 @@ const SquareImagesSettings = () => {
 					}}
 				/>
 			)}
+			<Stack
+				direction="row"
+				sx={{ justifyContent: 'center' }}>
+				<Typography
+					variant="caption"
+					sx={{
+						color: 'var(--gray-darker)',
+						fontSize: '0.9rem',
+					}}>
+					* قم بإضافة صورة تملأ المساحة المحددة *
+				</Typography>
+			</Stack>
 		</Stack>
 	);
 };

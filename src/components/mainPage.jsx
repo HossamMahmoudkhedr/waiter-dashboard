@@ -40,7 +40,7 @@ const MainPage = () => {
 
 	useEffect(() => {
 		dispatch(dataActions.addData({ key: 'chosenItems', value: chosenItems }));
-	}, [chosenItems.length]);
+	}, [chosenItems.length, chosenItems]);
 
 	return (
 		<Grid
