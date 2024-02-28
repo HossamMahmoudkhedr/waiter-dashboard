@@ -2,6 +2,7 @@ import React from 'react';
 import { icons } from './icons';
 import { Box, Stack, Typography } from '@mui/material';
 import { useDrag, useDrop } from 'react-dnd';
+import { useSelector } from 'react-redux';
 
 const Item = ({
 	index,
@@ -12,6 +13,8 @@ const Item = ({
 	activeItem,
 	moveItem,
 }) => {
+	const chosenItems = useSelector((state) => state.items.items);
+
 	const [, drag] = useDrag({
 		type: 'LIST_ITEM',
 		item: { index, activeItem },
@@ -83,20 +86,22 @@ const Item = ({
 						{name}
 					</Typography>
 				</Stack>
-				<Box
-					component="span"
-					onClick={() => {
-						handleRemoveItem(index);
-					}}
-					sx={{
-						height: '24px',
-						stroke: chosenItemIndex === index ? 'var(--white)' : '#344054',
+				{chosenItems[index].def !== 'staticProducts' && (
+					<Box
+						component="span"
+						onClick={() => {
+							handleRemoveItem(index);
+						}}
+						sx={{
+							height: '24px',
+							stroke: chosenItemIndex === index ? 'var(--white)' : '#344054',
 
-						position: 'relative',
-						zIndex: '2',
-					}}>
-					{icons.close}
-				</Box>
+							position: 'relative',
+							zIndex: '2',
+						}}>
+						{icons.close}
+					</Box>
+				)}
 			</Stack>
 		</Box>
 	);

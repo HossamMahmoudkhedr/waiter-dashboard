@@ -5,19 +5,17 @@ import CustomDesignButton from '../utils/customDesignButton';
 import { icons } from '../utils/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { bannerActions } from '../store/banner-slice';
+import { itemsActions } from '../store/items-slice';
 import { dataActions } from '../store/data-slice';
-import {
-	handleRemoveImage,
-	handleUploadChange,
-} from '../store/settingsActions';
+import { handleRemoveImage } from '../store/settingsActions';
 
-const BannerSettings = () => {
+const BannerSettings = ({ currentBanner, chosenItemIndex }) => {
 	const inputFileRef = useRef();
 	const changeFileRef = useRef();
 	const [change, setChange] = useState(null);
 	const dispatch = useDispatch();
-	const bannerImages = useSelector((state) => state.banner.bannerImages);
-
+	// const bannerImages = useSelector((state) => state.banner.bannerImages);
+	const bannerImages = currentBanner.bannerImages;
 	const handleUploadClick = () => {
 		inputFileRef.current.click();
 	};
@@ -27,9 +25,52 @@ const BannerSettings = () => {
 		changeFileRef.current.click();
 		inputFileRef.current.value = '';
 	};
-	useEffect(() => {
-		dispatch(dataActions.addData({ key: 'bannerImages', value: bannerImages }));
-	}, [bannerImages.length]);
+
+	const handleUploadChange = (
+		e,
+		change = false,
+		index = null,
+		targetActions,
+		dispatch
+	) => {
+		const file = e.target.files[0];
+		if (file) {
+			const reader = new FileReader();
+			reader.onload = (e) => {
+				if (!change) {
+					dispatch(
+						targetActions.addImage({
+							bannerIndex: chosenItemIndex,
+							src: e.target.result,
+						})
+					);
+				} else {
+					let newSrc = e.target.result;
+					dispatch(
+						targetActions.changeImage({
+							bannerIndex: chosenItemIndex,
+							imageIndex: index,
+							src: newSrc,
+						})
+					);
+				}
+			};
+			reader.readAsDataURL(file);
+		}
+	};
+
+	const handleRemoveImage = (index, targetActions, ref, dispatch) => {
+		dispatch(
+			targetActions.removeImage({
+				bannerIndex: chosenItemIndex,
+				imageIndex: index,
+			})
+		);
+		ref.current.value = '';
+	};
+	// useEffect(() => {
+	// 	dispatch(dataActions.addData({ key: 'bannerImages', value: bannerImages }));
+	// }, [bannerImages.length]);
 	return (
 		<Stack sx={{ gap: '1rem' }}>
 			<Heading
@@ -39,7 +80,7 @@ const BannerSettings = () => {
 			<Stack sx={{ gap: '1rem' }}>
 				<input
 					onChange={(e) => {
-						handleUploadChange(e, false, null, bannerActions, dispatch);
+						handleUploadChange(e, false, null, itemsActions, dispatch);
 					}}
 					ref={inputFileRef}
 					type="file"
@@ -48,7 +89,7 @@ const BannerSettings = () => {
 				/>
 				<input
 					onChange={(e) => {
-						handleUploadChange(e, true, change, bannerActions, dispatch);
+						handleUploadChange(e, true, change, itemsActions, dispatch);
 					}}
 					ref={changeFileRef}
 					type="file"
@@ -102,7 +143,7 @@ const BannerSettings = () => {
 										onClick: () => {
 											handleRemoveImage(
 												i,
-												bannerActions,
+												itemsActions,
 												inputFileRef,
 												dispatch
 											);
@@ -112,7 +153,7 @@ const BannerSettings = () => {
 							</Stack>
 						</Stack>
 					))}
-				{bannerImages.length < 3 && (
+				{bannerImages && bannerImages.length < 3 && (
 					<CustomDesignButton
 						bg="var(--gray-lighter)"
 						icon={icons.upload}

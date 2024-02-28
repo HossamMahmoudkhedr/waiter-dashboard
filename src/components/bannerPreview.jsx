@@ -2,8 +2,7 @@ import { Box, Stack } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-const BannerPreview = () => {
-	const bannerImages = useSelector((state) => state.banner.bannerImages);
+const BannerPreview = ({ bannerImages }) => {
 	const [viewedImage, setviewedImage] = useState(0);
 
 	useEffect(() => {

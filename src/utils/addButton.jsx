@@ -41,15 +41,15 @@ const AddButton = ({
 
 	// Adding items from the list to the items list in redux
 	const handleClick = (index) => {
+		console.log(index);
 		dispatch(targetActions.addItem(index));
-
 		// This section is responsible to manipulate the activition of the itmes
 		if (chosenItemIndex === chosenItems.length - 1) {
 			setChosenItemIndex(chosenItemIndex + 1);
 		} else {
 			setChosenItemIndex(chosenItems.length);
 		}
-		setSettingsContent(items[index].id - 1);
+		setSettingsContent(items[index].def);
 
 		// Hide the list after every selection
 		setShow(false);
@@ -58,20 +58,15 @@ const AddButton = ({
 	// Active itmes
 	const activeItem = (index) => {
 		setChosenItemIndex(index);
-		setSettingsContent(chosenItems[index].id - 1);
+		setSettingsContent(chosenItems[index].def);
 	};
 
 	// Remove items from the items in redux and reset the active item to the first one
 	const handleRemoveItem = (index) => {
 		dispatch(targetActions.removeItem(index));
 		setChosenItemIndex(0);
-		if (chosenItems.length - 1 === 0) {
-			setSettingsContent(null);
-		} else if (index === 0) {
-			setSettingsContent(chosenItems[1].id - 1);
-		} else {
-			setSettingsContent(chosenItems[0].id - 1);
-		}
+		setSettingsContent(chosenItems[0].def);
+
 		if (chosenItems[index].def === 'banner') {
 			dispatch(bannerActions.resetBanner());
 		} else if (chosenItems[index].def === 'squareImages') {
@@ -104,7 +99,7 @@ const AddButton = ({
 		newTabs.splice(hoverIndex, 0, draggedTab);
 		dispatch(itemsActions.reOrderItems(newTabs));
 		activeItem(hoverIndex);
-		setSettingsContent(chosenItems[dragIndex].id - 1);
+		setSettingsContent(chosenItems[dragIndex].def);
 	};
 
 	return (

@@ -12,12 +12,6 @@ import NavLinksPreview from './navLinksPreview';
 import BarPreview from './barPreview';
 import { dataActions } from '../store/data-slice';
 
-const settings = [
-	<BannerSettings />,
-	<StaticProductsSettings />,
-	<SquareImagesSettings />,
-];
-
 const MainPage = () => {
 	// This useState is responsible for making items active
 	const [chosenItemIndex, setChosenItemIndex] = useState(-1);
@@ -32,6 +26,17 @@ const MainPage = () => {
 	const items = useSelector((state) => state.items.availableItems);
 
 	const dispatch = useDispatch();
+
+	const settings = {
+		banner: (
+			<BannerSettings
+				currentBanner={chosenItems[chosenItemIndex]}
+				chosenItemIndex={chosenItemIndex}
+			/>
+		),
+		staticProducts: <StaticProductsSettings />,
+		squareImages: <SquareImagesSettings />,
+	};
 
 	useEffect(() => {
 		dispatch(dataActions.addData({ key: 'chosenItems', value: chosenItems }));

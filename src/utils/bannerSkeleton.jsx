@@ -3,9 +3,7 @@ import { Box, Skeleton, Stack, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import BannerPreview from '../components/bannerPreview';
 
-const BannerSkeleton = () => {
-	const bannerImages = useSelector((state) => state.banner.bannerImages);
-
+const BannerSkeleton = ({ bannerImages }) => {
 	return (
 		<Box
 			height={'192px'}
@@ -53,7 +51,9 @@ const BannerSkeleton = () => {
 					animation={false}
 				/>
 			)}
-			{bannerImages.length >= 1 && <BannerPreview />}
+			{bannerImages.length >= 1 && (
+				<BannerPreview bannerImages={bannerImages} />
+			)}
 		</Box>
 	);
 };
