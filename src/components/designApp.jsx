@@ -22,7 +22,7 @@ const DesignApp = ({ setDisabled }) => {
 		if (chosenItems.length > 0) {
 			setDisabled(false);
 		}
-	}, []);
+	}, [chosenItems.length, setDisabled]);
 
 	const handleClick = (index) => {
 		setChosenContent(index);

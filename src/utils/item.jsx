@@ -1,7 +1,6 @@
 import React from 'react';
 import { icons } from './icons';
 import { Box, Stack, Typography } from '@mui/material';
-import { useSelector } from 'react-redux';
 import { Draggable } from 'react-beautiful-dnd';
 
 const Item = ({
@@ -11,10 +10,9 @@ const Item = ({
 	name,
 	handleRemoveItem,
 	activeItem,
+	chosenItems,
 	id,
 }) => {
-	const chosenItems = useSelector((state) => state.items.items);
-
 	return (
 		<Draggable
 			draggableId={`${id}`}

@@ -32,7 +32,7 @@ const StartingScreens = () => {
 		dispatch(
 			dataActions.addData({ key: 'startingScreenItems', value: chosenItems })
 		);
-	}, [chosenItems.length]);
+	}, [chosenItems.length, chosenItems, dispatch]);
 	return (
 		<Grid
 			container

@@ -39,7 +39,6 @@ const AddButton = ({
 
 	// Adding items from the list to the items list in redux
 	const handleClick = (index) => {
-		console.log(index);
 		dispatch(targetActions.addItem(index));
 		// This section is responsible to manipulate the activition of the itmes
 		if (chosenItemIndex === chosenItems.length - 1) {
@@ -71,6 +70,7 @@ const AddButton = ({
 			dispatch(squareActions.resetList());
 		} else if (chosenItems[index].def === 'screens') {
 			dispatch(screenImagesActions.resetScreens());
+			setSettingsContent(null);
 		}
 	};
 
@@ -115,6 +115,7 @@ const AddButton = ({
 								<Item
 									index={i}
 									icon={item.icon}
+									chosenItems={chosenItems}
 									chosenItemIndex={chosenItemIndex}
 									name={item.name}
 									key={item.id}

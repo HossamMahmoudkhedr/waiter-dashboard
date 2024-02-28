@@ -1,5 +1,5 @@
 import { Box, Stack } from '@mui/material';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TopContentSkeleton from '../utils/topContentSkeleton';
 import BannerSkeleton from '../utils/bannerSkeleton';
 import SquareImagesSkeleton from '../utils/squareImagesSkeleton';

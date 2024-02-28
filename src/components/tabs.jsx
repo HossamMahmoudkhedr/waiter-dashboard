@@ -24,7 +24,7 @@ const Tabs = () => {
 		dispatch(
 			dataActions.addData({ key: 'showSearchBar', value: showSearchBar })
 		);
-	}, [tabs, showSearchBar]);
+	}, [tabs, showSearchBar, dispatch]);
 
 	const moveTab = (result) => {
 		if (!result.destination) return;

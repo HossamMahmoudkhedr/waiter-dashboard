@@ -31,7 +31,7 @@ const StartingScreensSettings = () => {
 		dispatch(
 			dataActions.addData({ key: 'startingScreenImages', value: screenImages })
 		);
-	}, [screenImages.length]);
+	}, [screenImages.length, screenImages, dispatch]);
 
 	return (
 		<Stack sx={{ gap: '1rem' }}>

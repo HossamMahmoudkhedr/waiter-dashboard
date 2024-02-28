@@ -1,20 +1,16 @@
-import { Box, Stack, Typography } from '@mui/material';
-import React, { useEffect, useRef, useState } from 'react';
+import { Stack, Typography } from '@mui/material';
+import React, { useRef, useState } from 'react';
 import Heading from '../utils/heading';
 import CustomDesignButton from '../utils/customDesignButton';
 import { icons } from '../utils/icons';
-import { useDispatch, useSelector } from 'react-redux';
-import { bannerActions } from '../store/banner-slice';
+import { useDispatch } from 'react-redux';
 import { itemsActions } from '../store/items-slice';
-import { dataActions } from '../store/data-slice';
-import { handleRemoveImage } from '../store/settingsActions';
 
 const BannerSettings = ({ currentBanner, chosenItemIndex }) => {
 	const inputFileRef = useRef();
 	const changeFileRef = useRef();
 	const [change, setChange] = useState(null);
 	const dispatch = useDispatch();
-	// const bannerImages = useSelector((state) => state.banner.bannerImages);
 	const bannerImages = currentBanner.bannerImages;
 	const handleUploadClick = () => {
 		inputFileRef.current.click();
@@ -68,9 +64,6 @@ const BannerSettings = ({ currentBanner, chosenItemIndex }) => {
 		);
 		ref.current.value = '';
 	};
-	// useEffect(() => {
-	// 	dispatch(dataActions.addData({ key: 'bannerImages', value: bannerImages }));
-	// }, [bannerImages.length]);
 	return (
 		<Stack sx={{ gap: '1rem' }}>
 			<Heading

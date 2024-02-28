@@ -17,7 +17,7 @@ const GeneralSettings = () => {
 		dispatch(
 			dataActions.addData({ key: 'generalSettings', value: generalSettings })
 		);
-	}, [generalSettings]);
+	}, [generalSettings, dispatch]);
 	return (
 		<Grid
 			container

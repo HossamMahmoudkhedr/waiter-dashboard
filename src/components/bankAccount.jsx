@@ -67,7 +67,7 @@ const BankAccount = ({ setDisabled }) => {
 		} else {
 			setDisabled(true);
 		}
-	}, [data]);
+	}, [data, setDisabled]);
 	const makeInputNumbers = (e) => {
 		if (!/[0-9]/g.test(e.key) && e.key !== 'Backspace') e.preventDefault();
 	};
@@ -184,7 +184,6 @@ const BankAccount = ({ setDisabled }) => {
 								borderRadius: '1rem',
 								backgroundColor: 'var(--white)',
 								boxShadow: 'var(--gray-shadow)',
-								width: '100%',
 								overflow: 'hidden',
 								padding: '1rem 0.75rem',
 								width: '100%',

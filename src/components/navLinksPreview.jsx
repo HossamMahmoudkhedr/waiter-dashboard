@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { icons, reduxIcons } from '../utils/icons';
+import { icons } from '../utils/icons';
 
 // The links in the bottom of the mobile app screen
 const NavLinksPreview = () => {

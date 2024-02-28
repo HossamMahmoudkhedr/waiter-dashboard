@@ -1,4 +1,4 @@
-import { Grid, ImageList, Stack, Typography } from '@mui/material';
+import { Grid, Stack, Typography } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import Heading from '../utils/heading';
 import { icons } from '../utils/icons';
@@ -30,7 +30,7 @@ const SquareImagesSettings = () => {
 
 	useEffect(() => {
 		dispatch(dataActions.addData({ key: 'SquareImages', value: imagesList }));
-	}, [imagesList]);
+	}, [imagesList, dispatch]);
 	return (
 		<Stack sx={{ gap: '1rem' }}>
 			<Heading
