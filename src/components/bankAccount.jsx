@@ -35,6 +35,7 @@ const StyledInput = styled.input`
 	border: none;
 	// width: 33.33%;
 	font-size: 1rem;
+	background-color: transparent;
 	&::placeholder {
 		color: var(--gray-light);
 	}
