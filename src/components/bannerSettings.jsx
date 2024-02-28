@@ -22,20 +22,14 @@ const BannerSettings = ({ currentBanner, chosenItemIndex }) => {
 		inputFileRef.current.value = '';
 	};
 
-	const handleUploadChange = (
-		e,
-		change = false,
-		index = null,
-		targetActions,
-		dispatch
-	) => {
+	const handleUploadChange = (e, change = false, index = null, dispatch) => {
 		const file = e.target.files[0];
 		if (file) {
 			const reader = new FileReader();
 			reader.onload = (e) => {
 				if (!change) {
 					dispatch(
-						targetActions.addImage({
+						itemsActions.addImage({
 							bannerIndex: chosenItemIndex,
 							src: e.target.result,
 						})
@@ -43,7 +37,7 @@ const BannerSettings = ({ currentBanner, chosenItemIndex }) => {
 				} else {
 					let newSrc = e.target.result;
 					dispatch(
-						targetActions.changeImage({
+						itemsActions.changeImage({
 							bannerIndex: chosenItemIndex,
 							imageIndex: index,
 							src: newSrc,
@@ -73,7 +67,7 @@ const BannerSettings = ({ currentBanner, chosenItemIndex }) => {
 			<Stack sx={{ gap: '1rem' }}>
 				<input
 					onChange={(e) => {
-						handleUploadChange(e, false, null, itemsActions, dispatch);
+						handleUploadChange(e, false, null, dispatch);
 					}}
 					ref={inputFileRef}
 					type="file"
@@ -82,7 +76,7 @@ const BannerSettings = ({ currentBanner, chosenItemIndex }) => {
 				/>
 				<input
 					onChange={(e) => {
-						handleUploadChange(e, true, change, itemsActions, dispatch);
+						handleUploadChange(e, true, change, dispatch);
 					}}
 					ref={changeFileRef}
 					type="file"
