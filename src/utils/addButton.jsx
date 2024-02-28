@@ -11,6 +11,8 @@ import { itemsActions } from '../store/items-slice';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { TouchBackend } from 'react-dnd-touch-backend';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { Provider } from 'react-redux';
 
 const StyldStack = styled(Stack)`
 	&&:hover {
@@ -92,40 +94,44 @@ const AddButton = ({
 		};
 	}, []);
 
-	const moveItem = (dragIndex, hoverIndex) => {
-		const draggedTab = chosenItems[dragIndex];
-		const newTabs = [...chosenItems];
-		newTabs.splice(dragIndex, 1);
-		newTabs.splice(hoverIndex, 0, draggedTab);
-		dispatch(itemsActions.reOrderItems(newTabs));
-		activeItem(hoverIndex);
-		setSettingsContent(chosenItems[dragIndex].def);
+	const moveItem = (result) => {
+		if (!result.destination) return;
+		const draggedItem = chosenItems[result.source.index];
+		const reorderdItems = Array.from(chosenItems);
+		reorderdItems.splice(result.source.index, 1);
+		reorderdItems.splice(result.destination.index, 0, draggedItem);
+
+		dispatch(itemsActions.reOrderItems(reorderdItems));
+		activeItem(result.destination.index);
+		setSettingsContent(chosenItems[result.source.index].def);
 	};
 
 	return (
 		<Stack sx={{ gap: '0.5rem' }}>
-			<Stack sx={{ gap: '0.5rem' }}>
-				{chosenItems.map((item, i) => (
-					<DndProvider
-						backend={TouchBackend}
-						options={{
-							enableTouchEvents: true,
-							enableMouseEvents: true,
-						}}
-						key={i}>
-						<Item
-							index={i}
-							icon={item.icon}
-							chosenItemIndex={chosenItemIndex}
-							name={item.name}
-							key={item.id}
-							handleRemoveItem={handleRemoveItem}
-							activeItem={activeItem}
-							moveItem={moveItem}
-						/>
-					</DndProvider>
-				))}
-			</Stack>
+			<DragDropContext onDragEnd={moveItem}>
+				<Droppable droppableId="items">
+					{(Provided) => (
+						<Stack
+							{...Provided.droppableProps}
+							ref={Provided.innerRef}
+							sx={{ gap: '0.5rem' }}>
+							{chosenItems.map((item, i) => (
+								<Item
+									index={i}
+									icon={item.icon}
+									chosenItemIndex={chosenItemIndex}
+									name={item.name}
+									key={item.id}
+									handleRemoveItem={handleRemoveItem}
+									activeItem={activeItem}
+									id={item.id}
+								/>
+							))}
+							{Provided.placeholder}
+						</Stack>
+					)}
+				</Droppable>
+			</DragDropContext>
 			<Box sx={{ position: 'relative' }}>
 				<CustomDesignButton
 					text={'عنصر جديد'}

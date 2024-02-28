@@ -3,6 +3,7 @@ import { icons } from './icons';
 import { Box, Stack, Typography } from '@mui/material';
 import { useDrag, useDrop } from 'react-dnd';
 import { useSelector } from 'react-redux';
+import { Draggable } from 'react-beautiful-dnd';
 
 const Item = ({
 	index,
@@ -12,98 +13,85 @@ const Item = ({
 	handleRemoveItem,
 	activeItem,
 	moveItem,
+	id,
 }) => {
 	const chosenItems = useSelector((state) => state.items.items);
 
-	const [, drag] = useDrag({
-		type: 'LIST_ITEM',
-		item: { index, activeItem },
-	});
-
-	const [, drop] = useDrop({
-		accept: 'LIST_ITEM',
-		hover(item) {
-			const dragIndex = item.index;
-			const hoverIndex = index;
-			if (dragIndex === hoverIndex) {
-				return;
-			}
-			// item.activeItem(dragIndex);
-
-			moveItem(dragIndex, hoverIndex);
-			item.index = hoverIndex;
-		},
-	});
-
 	return (
-		<Box
-			key={index}
-			ref={drop}>
-			<Stack
-				ref={drag}
-				key={index}
-				direction="row"
-				sx={{
-					justifyContent: 'space-between',
-					alignItems: 'center',
-					padding: '0.75rem 1rem',
-					backgroundColor:
-						chosenItemIndex === index ? 'var(--primary-color)' : 'var(--white)',
-					borderRadius: '0.75rem',
-					cursor: 'pointer',
-				}}>
+		<Draggable
+			draggableId={`${id}`}
+			index={index}>
+			{(provided) => (
 				<Stack
-					onClick={() => {
-						activeItem(index);
-					}}
+					key={`${id}`}
+					{...provided.draggableProps}
+					{...provided.dragHandleProps}
+					ref={provided.innerRef}
 					direction="row"
-					sx={{ gap: '0.5rem', alignItems: 'center', width: '100%' }}>
-					<Box
-						component="span"
-						height="16px"
-						sx={{ cursor: 'grab' }}>
-						{icons.dots}
-					</Box>
-					<Box
-						component="span"
-						sx={{
-							height: '24px',
-							fill: chosenItemIndex === index ? 'white' : '#344054',
-							stroke: chosenItemIndex === index ? 'white' : '#344054',
-							strokeWidth: '0.2px',
-						}}>
-						{icons[icon]}
-					</Box>
-					<Typography
-						variant="body1"
-						sx={{
-							color:
-								chosenItemIndex === index
-									? 'var(--white)'
-									: 'var(--gray-darker)',
-							fontWeight: '500',
-						}}>
-						{name}
-					</Typography>
-				</Stack>
-				{chosenItems[index].def !== 'staticProducts' && (
-					<Box
-						component="span"
+					sx={{
+						justifyContent: 'space-between',
+						alignItems: 'center',
+						padding: '0.75rem 1rem',
+						backgroundColor:
+							chosenItemIndex === index
+								? 'var(--primary-color)'
+								: 'var(--white)',
+						borderRadius: '0.75rem',
+						cursor: 'pointer',
+					}}>
+					<Stack
 						onClick={() => {
-							handleRemoveItem(index);
+							activeItem(index);
 						}}
-						sx={{
-							height: '24px',
-							stroke: chosenItemIndex === index ? 'var(--white)' : '#344054',
+						direction="row"
+						sx={{ gap: '0.5rem', alignItems: 'center', width: '100%' }}>
+						<Box
+							component="span"
+							height="16px"
+							sx={{ cursor: 'grab' }}>
+							{icons.dots}
+						</Box>
+						<Box
+							component="span"
+							sx={{
+								height: '24px',
+								fill: chosenItemIndex === index ? 'white' : '#344054',
+								stroke: chosenItemIndex === index ? 'white' : '#344054',
+								strokeWidth: '0.2px',
+							}}>
+							{icons[icon]}
+						</Box>
+						<Typography
+							variant="body1"
+							sx={{
+								color:
+									chosenItemIndex === index
+										? 'var(--white)'
+										: 'var(--gray-darker)',
+								fontWeight: '500',
+							}}>
+							{name}
+						</Typography>
+					</Stack>
+					{chosenItems[index].def !== 'staticProducts' && (
+						<Box
+							component="span"
+							onClick={() => {
+								handleRemoveItem(index);
+							}}
+							sx={{
+								height: '24px',
+								stroke: chosenItemIndex === index ? 'var(--white)' : '#344054',
 
-							position: 'relative',
-							zIndex: '2',
-						}}>
-						{icons.close}
-					</Box>
-				)}
-			</Stack>
-		</Box>
+								position: 'relative',
+								zIndex: '2',
+							}}>
+							{icons.close}
+						</Box>
+					)}
+				</Stack>
+			)}
+		</Draggable>
 	);
 };
 

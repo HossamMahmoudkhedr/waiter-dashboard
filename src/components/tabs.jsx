@@ -27,7 +27,7 @@ const Tabs = () => {
 	}, [tabs, showSearchBar]);
 
 	const moveTab = (result) => {
-		if (!result.destination) return; // Dragged outside the list
+		if (!result.destination) return;
 		const draggedTab = tabs[result.source.index];
 		const reorderedTabs = Array.from(tabs);
 		reorderedTabs.splice(result.source.index, 1);
@@ -36,7 +36,7 @@ const Tabs = () => {
 	};
 
 	const moveSubTab = (result) => {
-		if (!result.destination) return; // Dragged outside the list
+		if (!result.destination) return;
 		const draggedTab = subTabs[result.source.index];
 		const reorderedTabs = Array.from(subTabs);
 		reorderedTabs.splice(result.source.index, 1);
