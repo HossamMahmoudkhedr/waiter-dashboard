@@ -22,7 +22,6 @@ const AppBuilder = () => {
 	};
 	const handleforward = (e) => {
 		e.preventDefault();
-		setClicked(true);
 		chosenStep < stepperData.length - 1
 			? setChosenStep((prev) => (prev += 1))
 			: setChosenStep(stepperData.length - 1);
