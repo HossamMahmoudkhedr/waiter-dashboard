@@ -144,7 +144,7 @@ const BankAccount = ({ setDisabled }) => {
 							value: data.ownerName && data.ownerName,
 						}}
 					/>
-					<CustomInput
+					{/* <CustomInput
 						name="identityNumber"
 						type="text"
 						text={'رقم الهوية'}
@@ -155,7 +155,7 @@ const BankAccount = ({ setDisabled }) => {
 							maxLength: 10,
 							value: data.identityNumber && data.identityNumber,
 						}}
-					/>
+					/> */}
 					{/* <CustomInput
 						name="identityExpireDate"
 						type="date"
@@ -164,20 +164,37 @@ const BankAccount = ({ setDisabled }) => {
 						restprops={{ onChange: handleChange }}
 					/> */}
 					<Stack sx={{ gap: '0.5rem', width: '100%' }}>
-						<Box sx={{ position: 'relative', width: 'fit-content' }}>
-							<Box
-								component="span"
-								sx={{ position: 'absolute', left: '-15px', top: '0px' }}>
-								*
+						<Stack
+							direction={'row'}
+							sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
+							<Box sx={{ position: 'relative', width: 'fit-content' }}>
+								<Typography
+									component="label"
+									variant="body1"
+									sx={{ fontWeight: '700', color: 'var(--gray-color)' }}>
+									رقم الهوية
+								</Typography>
 							</Box>
+							<Box
+								sx={{
+									position: 'relative',
+									width: 'fit-content',
+									marginLeft: '20px',
+								}}>
+								<Box
+									component="span"
+									sx={{ position: 'absolute', left: '-15px', top: '0px' }}>
+									*
+								</Box>
 
-							<Typography
-								component="label"
-								variant="body1"
-								sx={{ fontWeight: '700', color: 'var(--gray-color)' }}>
-								تاريخ انتهاء الهوية
-							</Typography>
-						</Box>
+								<Typography
+									component="label"
+									variant="body1"
+									sx={{ fontWeight: '700', color: 'var(--gray-color)' }}>
+									تاريخ انتهاء الهوية
+								</Typography>
+							</Box>
+						</Stack>
 						<Stack
 							direction="row"
 							sx={{
@@ -191,7 +208,8 @@ const BankAccount = ({ setDisabled }) => {
 							<StyledInput
 								style={{ width: '50%' }}
 								type="text"
-								value={identityNumber}
+								onChange={handleChange}
+								value={data.identityNumber && data.identityNumber}
 								disabled
 								placeholder="رقم الهوية"
 							/>
@@ -213,6 +231,26 @@ const BankAccount = ({ setDisabled }) => {
 								/>
 							</Stack>
 						</Stack>
+					</Stack>
+					<Stack
+						sx={{
+							gap: '1rem',
+						}}>
+						{/* <Box>
+							<Heading text={'معلومات النشاط التجاري'} />
+						</Box> */}
+
+						<CustomInput
+							name="commercialNum"
+							type="text"
+							text={'رقم السجل التجاري'}
+							disabled={true}
+							restprops={{
+								onKeyDown: makeInputNumbers,
+								onChange: handleChange,
+								value: data.commercialNum && data.commercialNum,
+							}}
+						/>
 					</Stack>
 				</Stack>
 			</Grid>
@@ -305,31 +343,6 @@ const BankAccount = ({ setDisabled }) => {
 						restprops={{
 							onChange: handleChange,
 							value: data.accountName && data.accountName,
-						}}
-					/>
-				</Stack>
-			</Grid>
-			<Grid
-				item
-				md={6}
-				xs={12}>
-				<Stack
-					sx={{
-						gap: '1rem',
-					}}>
-					<Box>
-						<Heading text={'معلومات النشاط التجاري'} />
-					</Box>
-
-					<CustomInput
-						name="commercialNum"
-						type="text"
-						text={'رقم السجل التجاري'}
-						disabled={true}
-						restprops={{
-							onKeyDown: makeInputNumbers,
-							onChange: handleChange,
-							value: data.commercialNum && data.commercialNum,
 						}}
 					/>
 				</Stack>
