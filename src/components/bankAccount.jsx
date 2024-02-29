@@ -290,7 +290,7 @@ const BankAccount = ({ setDisabled, clicked }) => {
 						{identityError && (
 							<Typography
 								variant="caption"
-								sx={{ color: '#ff3333', fontSize: '1rem' }}>
+								sx={{ color: '#ff3333', fontSize: '0.9rem' }}>
 								{identityError}
 							</Typography>
 						)}
@@ -380,7 +380,7 @@ const BankAccount = ({ setDisabled, clicked }) => {
 						{bankNameError && (
 							<Typography
 								variant="caption"
-								sx={{ color: '#ff3333', fontSize: '1rem' }}>
+								sx={{ color: '#ff3333', fontSize: '0.9rem' }}>
 								{bankNameError}
 							</Typography>
 						)}
