@@ -7,10 +7,8 @@ import CustomInput from '../utils/customInput';
 import Heading from '../utils/heading';
 import { useDispatch, useSelector } from 'react-redux';
 import { dataActions } from '../store/data-slice';
-import moment from 'moment-hijri';
-import DatePicker, { Calendar } from '@sanitysign/react-multi-date-picker';
+import DatePicker from '@sanitysign/react-multi-date-picker';
 import arabic from 'react-date-object/calendars/arabic';
-import english from 'react-date-object/locales/gregorian_en';
 import arabic_ar from 'react-date-object/locales/arabic_ar';
 
 const StyledSelect = styled.select`
@@ -48,16 +46,17 @@ const StyledInput = styled.input`
 	}
 `;
 
-const BankAccount = ({ setDisabled }) => {
+const BankAccount = ({ setDisabled, clicked }) => {
 	const data = useSelector((state) => state.data.data);
 	const selectRef = useRef(null);
 	const dispatch = useDispatch();
 	const [ibanError, setIbanError] = useState('');
+	const [bankNameError, setBankNameError] = useState('');
+	const [identityError, setIdentityError] = useState('');
+	const [accountNameError, setAccountNameError] = useState('');
 	const [bankName, setBankName] = useState(
 		data.bankName ? data.bankName : 'bank_name'
 	);
-	const [hijri, setHijri] = useState(data.hijri ? data.hijri : '');
-	const [dateValue, setDateValue] = useState('');
 	const [isHijri, setIshijri] = useState(true);
 	const [dateType, setDateType] = useState({});
 
@@ -74,6 +73,42 @@ const BankAccount = ({ setDisabled }) => {
 			setDisabled(true);
 		}
 	}, [data, setDisabled]);
+
+	useEffect(() => {
+		console.log(clicked);
+		if (clicked) {
+			if (
+				data.bankName === 'bankName' ||
+				!data.bankName ||
+				data.bankName === ''
+			) {
+				setBankNameError('قم باختيار اسم البنك');
+			} else {
+				setBankNameError('');
+			}
+			if (!data.date || data.date === '') {
+				setIdentityError('قم بادخال تاريخ انتهاء الهوية');
+			} else {
+				setIdentityError('');
+			}
+			if (!data.bankAccountNum || data.bankAccountNum === 'SA') {
+				setIbanError('قم بادخال رقم الحساب البنكي بدون SA');
+			} else {
+				setIbanError('');
+			}
+			if (!data.accountName || data.accountName === '') {
+				setAccountNameError('قم بادخال اسم الحساب');
+			} else {
+				setAccountNameError('');
+			}
+		}
+	}, [
+		clicked,
+		data.bankName,
+		data.date,
+		data.bankAccountNum,
+		data.accountName,
+	]);
 	const makeInputNumbers = (e) => {
 		if (!/[0-9]/g.test(e.key) && e.key !== 'Backspace') e.preventDefault();
 	};
@@ -110,7 +145,7 @@ const BankAccount = ({ setDisabled }) => {
 		} else {
 			const strings = input.value.split('/');
 			const numbers = strings.map(Number);
-			const [year, month, day] = numbers;
+			const [month, day] = numbers;
 
 			if (input.value && numbers.some((number) => isNaN(number))) {
 				return false; //in case user enter something other than digits
@@ -180,25 +215,6 @@ const BankAccount = ({ setDisabled }) => {
 							value: data.ownerName && data.ownerName,
 						}}
 					/>
-					{/* <CustomInput
-						name="identityNumber"
-						type="text"
-						text={'رقم الهوية'}
-						disabled={true}
-						restprops={{
-							onKeyDown: makeInputNumbers,
-							onChange: handleChange,
-							maxLength: 10,
-							value: data.identityNumber && data.identityNumber,
-						}}
-					/> */}
-					{/* <CustomInput
-						name="identityExpireDate"
-						type="date"
-						required={true}
-						text={'تاريخ انتهاء الهوية'}
-						restprops={{ onChange: handleChange }}
-					/> */}
 					<Stack sx={{ gap: '0.5rem', width: '100%' }}>
 						<Stack
 							direction={'row'}
@@ -236,6 +252,7 @@ const BankAccount = ({ setDisabled }) => {
 							sx={{
 								borderRadius: '1rem',
 								backgroundColor: 'var(--white)',
+								border: identityError ? '1px solid #ff3333' : 'unset',
 								boxShadow: 'var(--gray-shadow)',
 								overflow: 'hidden',
 								padding: '1rem 0.75rem',
@@ -270,15 +287,18 @@ const BankAccount = ({ setDisabled }) => {
 								</Button>
 							</DatePicker>
 						</Stack>
+						{identityError && (
+							<Typography
+								variant="caption"
+								sx={{ color: '#ff3333', fontSize: '1rem' }}>
+								{identityError}
+							</Typography>
+						)}
 					</Stack>
 					<Stack
 						sx={{
 							gap: '1rem',
 						}}>
-						{/* <Box>
-							<Heading text={'معلومات النشاط التجاري'} />
-						</Box> */}
-
 						<CustomInput
 							name="commercialNum"
 							type="text"
@@ -319,6 +339,7 @@ const BankAccount = ({ setDisabled }) => {
 							sx={{
 								position: 'relative',
 								backgroundColor: 'var(--white)',
+								border: bankNameError ? '1px solid #ff3333' : 'unset',
 								borderRadius: '1rem',
 								boxShadow: 'var(--gray-shadow)',
 							}}>
@@ -356,6 +377,13 @@ const BankAccount = ({ setDisabled }) => {
 								{icons.arrowDown}
 							</Box>
 						</Box>
+						{bankNameError && (
+							<Typography
+								variant="caption"
+								sx={{ color: '#ff3333', fontSize: '1rem' }}>
+								{bankNameError}
+							</Typography>
+						)}
 					</Stack>
 
 					<CustomInput
@@ -379,6 +407,7 @@ const BankAccount = ({ setDisabled }) => {
 						type="text"
 						text={'اسم الحساب'}
 						required={true}
+						error={accountNameError}
 						restprops={{
 							onChange: handleChange,
 							value: data.accountName && data.accountName,

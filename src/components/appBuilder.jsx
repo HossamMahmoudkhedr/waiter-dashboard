@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 const AppBuilder = () => {
 	const [chosenStep, setChosenStep] = useState(0);
 	const [disabled, setDisabled] = useState(true);
+	const [clicked, setClicked] = useState(false);
 
 	const data = useSelector((state) => state.data.data);
 
@@ -21,6 +22,7 @@ const AppBuilder = () => {
 	};
 	const handleforward = (e) => {
 		e.preventDefault();
+		setClicked(true);
 		chosenStep < stepperData.length - 1
 			? setChosenStep((prev) => (prev += 1))
 			: setChosenStep(stepperData.length - 1);
@@ -29,7 +31,10 @@ const AppBuilder = () => {
 	const stepperContent = [
 		<CreateApp setDisabled={setDisabled} />,
 		<DesignApp setDisabled={setDisabled} />,
-		<BankAccount setDisabled={setDisabled} />,
+		<BankAccount
+			setDisabled={setDisabled}
+			clicked={clicked}
+		/>,
 		<Review />,
 	];
 	useEffect(() => {
@@ -129,6 +134,9 @@ const AppBuilder = () => {
 				<Box>{stepperContent[chosenStep]}</Box>
 				{chosenStep < 3 && (
 					<Stack
+						onClick={() => {
+							setClicked(chosenStep === 2 ? true : false);
+						}}
 						direction={{ xs: 'column-reverse', md: 'row' }}
 						sx={{
 							justifyContent: 'space-between',
