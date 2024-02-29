@@ -127,35 +127,37 @@ const AppBuilder = () => {
 					))}
 				</Stack>
 				<Box>{stepperContent[chosenStep]}</Box>
-				<Stack
-					direction={{ xs: 'column-reverse', md: 'row' }}
-					sx={{
-						justifyContent: 'space-between',
-						alignItems: 'center',
-						padding: { xs: '0 1rem', lg: 'unset' },
-						gap: { xs: '1rem', md: 'unset' },
-					}}>
-					<CustomButton
-						text="السابق"
-						textcolor="var(--black)"
-						bg="var(--gray-lighter)"
-						width="100%"
-						restprops={{
-							onClick: handleback,
-						}}
-					/>
-					<CustomButton
-						text="التالي"
-						textcolor="var(--white)"
-						bg="var(--primary-color)"
-						width="100%"
-						type="button"
-						restprops={{
-							onClick: handleforward,
-							disabled: disabled,
-						}}
-					/>
-				</Stack>
+				{chosenStep < 3 && (
+					<Stack
+						direction={{ xs: 'column-reverse', md: 'row' }}
+						sx={{
+							justifyContent: 'space-between',
+							alignItems: 'center',
+							padding: { xs: '0 1rem', lg: 'unset' },
+							gap: { xs: '1rem', md: 'unset' },
+						}}>
+						<CustomButton
+							text="السابق"
+							textcolor="var(--black)"
+							bg="var(--gray-lighter)"
+							width="100%"
+							restprops={{
+								onClick: handleback,
+							}}
+						/>
+						<CustomButton
+							text={chosenStep === 2 ? 'تقديم' : 'التالي'}
+							textcolor="var(--white)"
+							bg="var(--primary-color)"
+							width="100%"
+							type="button"
+							restprops={{
+								onClick: handleforward,
+								disabled: disabled,
+							}}
+						/>
+					</Stack>
+				)}
 			</Stack>
 		</Box>
 	);
