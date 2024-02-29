@@ -10,6 +10,7 @@ import { dataActions } from '../store/data-slice';
 import DatePicker from '@sanitysign/react-multi-date-picker';
 import arabic from 'react-date-object/calendars/arabic';
 import arabic_ar from 'react-date-object/locales/arabic_ar';
+import ErrorMessage from '../utils/errorMessage';
 
 const StyledSelect = styled.select`
 	border: none;
@@ -62,6 +63,9 @@ const BankAccount = ({ setDisabled, clicked }) => {
 
 	useEffect(() => {
 		if (
+			data.ownerName &&
+			data.identityNumber &&
+			data.commercialNum &&
 			data.date &&
 			data.bankName &&
 			data.bankAccountNum &&
@@ -287,13 +291,7 @@ const BankAccount = ({ setDisabled, clicked }) => {
 								</Button>
 							</DatePicker>
 						</Stack>
-						{identityError && (
-							<Typography
-								variant="caption"
-								sx={{ color: '#ff3333', fontSize: '0.9rem' }}>
-								{identityError}
-							</Typography>
-						)}
+						{identityError && <ErrorMessage message={identityError} />}
 					</Stack>
 					<Stack
 						sx={{
@@ -377,13 +375,7 @@ const BankAccount = ({ setDisabled, clicked }) => {
 								{icons.arrowDown}
 							</Box>
 						</Box>
-						{bankNameError && (
-							<Typography
-								variant="caption"
-								sx={{ color: '#ff3333', fontSize: '0.9rem' }}>
-								{bankNameError}
-							</Typography>
-						)}
+						{bankNameError && <ErrorMessage message={bankNameError} />}
 					</Stack>
 
 					<CustomInput

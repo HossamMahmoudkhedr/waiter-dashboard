@@ -1,6 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material';
 import React from 'react';
 import styled from 'styled-components';
+import ErrorMessage from './errorMessage';
 
 const StyledInput = styled.input`
 	outline: none;
@@ -92,13 +93,7 @@ const CustomInput = ({
 				)}
 			</Box>
 
-			{error && (
-				<Typography
-					variant="caption"
-					sx={{ color: '#ff3333', fontSize: '0.9rem' }}>
-					{error}
-				</Typography>
-			)}
+			{error && <ErrorMessage message={error} />}
 		</Stack>
 	);
 };
