@@ -1,4 +1,4 @@
-import { Box, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import { banks } from '../data/banksData';
 import styled from 'styled-components';
@@ -8,6 +8,10 @@ import Heading from '../utils/heading';
 import { useDispatch, useSelector } from 'react-redux';
 import { dataActions } from '../store/data-slice';
 import moment from 'moment-hijri';
+import DatePicker, { Calendar } from '@sanitysign/react-multi-date-picker';
+import arabic from 'react-date-object/calendars/arabic';
+import english from 'react-date-object/locales/gregorian_en';
+import arabic_ar from 'react-date-object/locales/arabic_ar';
 
 const StyledSelect = styled.select`
 	border: none;
@@ -52,8 +56,10 @@ const BankAccount = ({ setDisabled }) => {
 	const [bankName, setBankName] = useState(
 		data.bankName ? data.bankName : 'bank_name'
 	);
-	const [identityNumber, setIdentityNumber] = useState('');
 	const [hijri, setHijri] = useState(data.hijri ? data.hijri : '');
+	const [dateValue, setDateValue] = useState('');
+	const [isHijri, setIshijri] = useState(true);
+	const [dateType, setDateType] = useState({});
 
 	useEffect(() => {
 		if (
@@ -80,6 +86,51 @@ const BankAccount = ({ setDisabled }) => {
 		}
 	};
 
+	const handleDateChange = () => {
+		setIshijri(!isHijri);
+		dispatch(dataActions.addData({ key: 'date', value: '' }));
+		if (isHijri) {
+			setDateType({ calendar: arabic, locale: arabic_ar });
+		} else {
+			setDateType({});
+		}
+	};
+
+	const handleDateValue = (date, { input, isTyping }) => {
+		dispatch(dataActions.addData({ key: 'date', value: '' }));
+		if (!isTyping) {
+			if (date) {
+				dispatch(
+					dataActions.addData({
+						key: 'date',
+						value: `${date.year}/${date.month.number}/${date.day}`,
+					})
+				);
+			}
+		} else {
+			const strings = input.value.split('/');
+			const numbers = strings.map(Number);
+			const [year, month, day] = numbers;
+
+			if (input.value && numbers.some((number) => isNaN(number))) {
+				return false; //in case user enter something other than digits
+			}
+
+			if (month > 12 || month < 0) return false; //month < 0 in case user want to type 01
+			if (day < 0 || (date && day > date.day)) return false;
+			if (strings.some((val) => val.startsWith('00'))) return false;
+
+			if (date) {
+				dispatch(
+					dataActions.addData({
+						key: 'date',
+						value: `${date.year}/${date.month.number}/${date.day}`,
+					})
+				);
+			}
+		}
+	};
+
 	const handleChange = (e) => {
 		let name = e.target.name;
 		let value = e.target.value;
@@ -91,21 +142,6 @@ const BankAccount = ({ setDisabled }) => {
 			setBankName(value);
 		}
 
-		if (name === 'identityNumber') {
-			setIdentityNumber(value);
-		}
-
-		if (name === 'date') {
-			let hijriHistory = moment(value, 'YYYY-M-D').format('iYYYY/iM/iD');
-			setHijri(hijriHistory);
-
-			dispatch(
-				dataActions.addData({
-					key: 'hijri',
-					value: hijriHistory,
-				})
-			);
-		}
 		dispatch(dataActions.addData({ key: name, value: value }));
 	};
 
@@ -204,6 +240,7 @@ const BankAccount = ({ setDisabled }) => {
 								overflow: 'hidden',
 								padding: '1rem 0.75rem',
 								width: '100%',
+								justifyContent: 'space-between',
 							}}>
 							<StyledInput
 								style={{ width: '50%' }}
@@ -213,23 +250,25 @@ const BankAccount = ({ setDisabled }) => {
 								disabled
 								placeholder="رقم الهوية"
 							/>
-							<Stack
-								direction="row"
-								justifyContent={'center'}>
-								<StyledInput
-									name="hijri"
-									style={{ width: '36%' }}
-									disabled
-									value={hijri}
-									type="text"
-								/>
-								<StyledInput
-									type="date"
-									name="date"
-									onChange={handleChange}
-									value={data.date && data.date}
-								/>
-							</Stack>
+
+							<DatePicker
+								placeholder="YY/MM"
+								onChange={handleDateValue}
+								name="date"
+								value={data.date}
+								style={{
+									width: '120px',
+									border: 'none',
+									outline: 'none',
+								}}
+								{...dateType}>
+								<Button
+									onClick={handleDateChange}
+									variant="text"
+									sx={{ color: 'var(--primary-color)' }}>
+									{isHijri ? 'هجري' : 'ميلادي'}
+								</Button>
+							</DatePicker>
 						</Stack>
 					</Stack>
 					<Stack
