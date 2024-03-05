@@ -8,6 +8,7 @@ import './App.css';
 import RootLayout from './pages/rootLayout';
 import Home from './components/home';
 import AppBuilder from './components/appBuilder';
+import Notfound from './pages/notfound';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -21,6 +22,10 @@ const router = createBrowserRouter(
 			<Route
 				path="/appBuilder"
 				element={<AppBuilder />}
+			/>
+			<Route
+				path="*"
+				element={<Notfound />}
 			/>
 		</Route>
 	)
