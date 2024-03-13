@@ -63,9 +63,6 @@ const BankAccount = ({ setDisabled, clicked }) => {
 
 	useEffect(() => {
 		if (
-			data.ownerName &&
-			data.identityNumber &&
-			data.commercialNum &&
 			data.date &&
 			data.bankName &&
 			data.bankAccountNum &&
